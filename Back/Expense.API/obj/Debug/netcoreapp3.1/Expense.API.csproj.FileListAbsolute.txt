@@ -24,7 +24,6 @@ C:\Users\alvei\DEV\NET\ExpensesDev\cmejia.expenses\Back\Expense.API\bin\Debug\ne
 C:\Users\alvei\DEV\NET\ExpensesDev\cmejia.expenses\Back\Expense.API\bin\Debug\netcoreapp3.1\Expense.API.runtimeconfig.dev.json
 C:\Users\alvei\DEV\NET\ExpensesDev\cmejia.expenses\Back\Expense.API\bin\Debug\netcoreapp3.1\Expense.API.dll
 C:\Users\alvei\DEV\NET\ExpensesDev\cmejia.expenses\Back\Expense.API\bin\Debug\netcoreapp3.1\Expense.API.pdb
-C:\Users\alvei\DEV\NET\ExpensesDev\cmejia.expenses\Back\Expense.API\obj\Debug\netcoreapp3.1\Expense.API.csprojAssemblyReference.cache
 C:\Users\alvei\DEV\NET\ExpensesDev\cmejia.expenses\Back\Expense.API\obj\Debug\netcoreapp3.1\staticwebassets\Expense.API.StaticWebAssets.Manifest.cache
 C:\Users\alvei\DEV\NET\ExpensesDev\cmejia.expenses\Back\Expense.API\obj\Debug\netcoreapp3.1\staticwebassets\Expense.API.StaticWebAssets.xml
 C:\Users\alvei\DEV\NET\ExpensesDev\cmejia.expenses\Back\Expense.API\obj\Debug\netcoreapp3.1\Expense.API.MvcApplicationPartsAssemblyInfo.cache
@@ -33,3 +32,4 @@ C:\Users\alvei\DEV\NET\ExpensesDev\cmejia.expenses\Back\Expense.API\obj\Debug\ne
 C:\Users\alvei\DEV\NET\ExpensesDev\cmejia.expenses\Back\Expense.API\obj\Debug\netcoreapp3.1\Expense.API.RazorTargetAssemblyInfo.cache
 C:\Users\alvei\DEV\NET\ExpensesDev\cmejia.expenses\Back\Expense.API\obj\Debug\netcoreapp3.1\Expense.API.dll
 C:\Users\alvei\DEV\NET\ExpensesDev\cmejia.expenses\Back\Expense.API\obj\Debug\netcoreapp3.1\Expense.API.pdb
+C:\Users\alvei\DEV\NET\ExpensesDev\cmejia.expenses\Back\Expense.API\obj\Debug\netcoreapp3.1\Expense.API.csprojAssemblyReference.cache
