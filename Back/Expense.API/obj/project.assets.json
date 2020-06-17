@@ -87,11 +87,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\alvei\\DEV\\NET\\Expenses\\Expense.API\\Expense.API.csproj",
+      "projectUniqueName": "C:\\Users\\alvei\\DEV\\NET\\ExpensesDev\\cmejia.expenses\\Back\\Expense.API\\Expense.API.csproj",
       "projectName": "Expense.API",
-      "projectPath": "C:\\Users\\alvei\\DEV\\NET\\Expenses\\Expense.API\\Expense.API.csproj",
+      "projectPath": "C:\\Users\\alvei\\DEV\\NET\\ExpensesDev\\cmejia.expenses\\Back\\Expense.API\\Expense.API.csproj",
       "packagesPath": "C:\\Users\\alvei\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\alvei\\DEV\\NET\\Expenses\\Expense.API\\obj\\",
+      "outputPath": "C:\\Users\\alvei\\DEV\\NET\\ExpensesDev\\cmejia.expenses\\Back\\Expense.API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\alvei\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\alvei\\DEV\\NET\\ExpensesDev\\cmejia.expenses\\Back\\Expense.API\\Expense.API.csproj": {}
+    "C:\\Users\\alvei\\DEV\\NET\\ExpensesDev\\cmejia.expenses\\Back\\Domain.Core\\Domain.Core.csproj": {}
   },
   "projects": {
-    "C:\\Users\\alvei\\DEV\\NET\\ExpensesDev\\cmejia.expenses\\Back\\Expense.API\\Expense.API.csproj": {
+    "C:\\Users\\alvei\\DEV\\NET\\ExpensesDev\\cmejia.expenses\\Back\\Domain.Core\\Domain.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\alvei\\DEV\\NET\\ExpensesDev\\cmejia.expenses\\Back\\Expense.API\\Expense.API.csproj",
-        "projectName": "Expense.API",
-        "projectPath": "C:\\Users\\alvei\\DEV\\NET\\ExpensesDev\\cmejia.expenses\\Back\\Expense.API\\Expense.API.csproj",
+        "projectUniqueName": "C:\\Users\\alvei\\DEV\\NET\\ExpensesDev\\cmejia.expenses\\Back\\Domain.Core\\Domain.Core.csproj",
+        "projectName": "Domain.Core",
+        "projectPath": "C:\\Users\\alvei\\DEV\\NET\\ExpensesDev\\cmejia.expenses\\Back\\Domain.Core\\Domain.Core.csproj",
         "packagesPath": "C:\\Users\\alvei\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\alvei\\DEV\\NET\\ExpensesDev\\cmejia.expenses\\Back\\Expense.API\\obj\\",
+        "outputPath": "C:\\Users\\alvei\\DEV\\NET\\ExpensesDev\\cmejia.expenses\\Back\\Domain.Core\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\alvei\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -38,9 +38,9 @@
       "frameworks": {
         "netcoreapp3.1": {
           "dependencies": {
-            "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": {
+            "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[1.9.10, )"
+              "version": "[3.1.5, )"
             }
           },
           "imports": [
@@ -54,9 +54,6 @@
           "assetTargetFallback": true,
           "warn": true,
           "frameworkReferences": {
-            "Microsoft.AspNetCore.App": {
-              "privateAssets": "none"
-            },
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
