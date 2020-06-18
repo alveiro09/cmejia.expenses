@@ -1,5 +1,7 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Domain.Core.Base;
+using Domain.Core.Contracts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -7,8 +9,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using System;
 using System.Linq;
+using User.API.Application.Model;
+using User.API.Configurations;
+using User.API.Infraestructure;
 using UserManagement.Domain.Infraestructure;
 
 namespace User.API
@@ -32,10 +39,15 @@ namespace User.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
+            //IoC
+            IoCContainerConfiguration.ConfigureService(services);
+            //Swagger
+            SwaggerConfiguration.ConfigureServices(services);
             services.AddMvc(option =>
             {
 
-            }).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            //DB
             services.AddEntityFrameworkMySql().AddDbContext<UserManagementContext>(options =>
             {
                 options.UseMySql(Configuration.GetSection("ConnectionString").Value,
@@ -44,6 +56,8 @@ namespace User.API
                     mysqlOpt.MigrationsAssembly(typeof(UserManagementContext).Assembly.GetName().Name);
                 });
             }, ServiceLifetime.Scoped);
+            services.AddScoped<IDbContext, UserManagementContext>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
             var container = new ContainerBuilder();
             container.Populate(services);
             return new AutofacServiceProvider(container.Build());
@@ -52,13 +66,11 @@ namespace User.API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UsePathBase("/api/usermanagement");
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            app.UseCors("atlas-identity-cors-policy");
-
             // Supporting reverse proxy (nginx)
             app.UseForwardedHeaders(new ForwardedHeadersOptions
             {
@@ -81,19 +93,15 @@ namespace User.API
             app.UseAuthentication();
             app.UseMvc();
             var context = (UserManagementContext)app.ApplicationServices.GetService(typeof(UserManagementContext));
-            //if (!context.AllMigrationsApplied())
-            //{
-            //    context.Database.Migrate();
-            //    context.EnsureSeed(app.ApplicationServices.GetService<IHostingEnvironment>(),
-            //                       app.ApplicationServices.GetService<ILogger<PlatformManagementContext>>());
-            //}
-            app.UseSwagger();
-            app.UseSwaggerUI(config =>
+            if (!context.AllMigrationsApplied())
             {
-                config.DocumentTitle = "Atlas Identity API";
-                config.SwaggerEndpoint("swagger/v1/swagger.json", "Atlas Identity");
-                config.RoutePrefix = string.Empty;
-            });
+                context.Database.Migrate();
+                context.EnsureSeed(app.ApplicationServices.GetService<IOptions<UserSettings>>(),
+                                  app.ApplicationServices.GetService<IHostingEnvironment>(),
+                                  app.ApplicationServices.GetService<ILogger<UserManagementContext>>());
+            }
+            //Set Swagger API documentation
+            SwaggerConfiguration.Configure(app);
         }
     }
 }
