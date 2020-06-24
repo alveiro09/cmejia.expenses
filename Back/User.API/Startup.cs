@@ -94,13 +94,13 @@ namespace User.API
             app.UseAuthentication();
             app.UseMvc();
             var context = (UserManagementContext)app.ApplicationServices.GetService(typeof(UserManagementContext));
-            if (!context.AllMigrationsApplied())
-            {
-                context.Database.Migrate();
-                context.EnsureSeed(app.ApplicationServices.GetService<IOptions<UserSettings>>(),
-                                  app.ApplicationServices.GetService<IHostingEnvironment>(),
-                                  app.ApplicationServices.GetService<ILogger<UserManagementContext>>());
-            }
+            //if (!context.AllMigrationsApplied())
+            //{
+            //    context.Database.Migrate();
+            //    context.EnsureSeed(app.ApplicationServices.GetService<IOptions<UserSettings>>(),
+            //                      app.ApplicationServices.GetService<IHostingEnvironment>(),
+            //                      app.ApplicationServices.GetService<ILogger<UserManagementContext>>());
+            //}
             //Set Swagger API documentation
             SwaggerConfiguration.Configure(app);
         }

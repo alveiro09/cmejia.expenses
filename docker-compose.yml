@@ -2,8 +2,8 @@ version: '3.8'
 volumes: 
     db_data:  
 networks:
-  atlas_default:
-    name: atlas_default
+  expenses_network:
+    name: expenses_network
     external: false
 
 
@@ -19,7 +19,9 @@ services:
     restart: always 
     environment: 
         MYSQL_ROOT_PASSWORD: root 
-        MYSQL_DATABASE: UserManagementDB 
+        MYSQL_DATABASE: UserManagementDB     
+    networks:
+      - expenses_network  
   
   usermanagement.api: 
     image: usermanagementapi 
@@ -35,7 +37,9 @@ services:
     restart: always 
     build: 
       context: ./Back
-      dockerfile: ./User.API/Dockerfile  
+      dockerfile: ./User.API/Dockerfile
+    networks:
+      - expenses_network  
 
   expensemanagement.api: 
     image: expensemanagementapi 
@@ -52,3 +56,5 @@ services:
     build: 
       context: ./Back
       dockerfile: ./Expense.API/Dockerfile
+    networks:
+      - expenses_network

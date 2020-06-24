@@ -93,13 +93,13 @@ namespace Expense.API
             app.UseAuthentication();
             app.UseMvc();
             var context = (ExpenseManagementContext)app.ApplicationServices.GetService(typeof(ExpenseManagementContext));
-            if (!context.AllMigrationsApplied())
-            {
-                context.Database.Migrate();
-                context.EnsureSeed(app.ApplicationServices.GetService<IOptions<ExpenseSettings>>(),
-                                  app.ApplicationServices.GetService<IHostingEnvironment>(),
-                                  app.ApplicationServices.GetService<ILogger<ExpenseManagementContext>>());
-            }
+            //if (!context.AllMigrationsApplied())
+            //{
+            //    context.Database.Migrate();
+            //    context.EnsureSeed(app.ApplicationServices.GetService<IOptions<ExpenseSettings>>(),
+            //                      app.ApplicationServices.GetService<IHostingEnvironment>(),
+            //                      app.ApplicationServices.GetService<ILogger<ExpenseManagementContext>>());
+            //}
             //Set Swagger API documentation
             SwaggerConfiguration.Configure(app);
         }
