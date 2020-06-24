@@ -2,7 +2,6 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Domain.Core.Base;
 using Domain.Core.Contracts;
-using Expense.API.Configurations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -14,7 +13,10 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
 using System.Linq;
-using UserManagement.Domain.Infraestructure;
+using Expense.API.Application.Model;
+using Expense.API.Configurations;
+using Expense.API.Infraestructure;
+using ExpenseManagement.Domain.Infraestructure;
 
 namespace Expense.API
 {
@@ -46,15 +48,15 @@ namespace Expense.API
 
             }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             //DB
-            services.AddEntityFrameworkMySql().AddDbContext<UserManagementContext>(options =>
+            services.AddEntityFrameworkMySql().AddDbContext<ExpenseManagementContext>(options =>
             {
                 options.UseMySql(Configuration.GetSection("ConnectionString").Value,
                 mySqlOptionsAction: mysqlOpt =>
                 {
-                    mysqlOpt.MigrationsAssembly(typeof(UserManagementContext).Assembly.GetName().Name);
+                    mysqlOpt.MigrationsAssembly(typeof(ExpenseManagementContext).Assembly.GetName().Name);
                 });
             }, ServiceLifetime.Scoped);
-            services.AddScoped<IDbContext, UserManagementContext>();
+            services.AddScoped<IDbContext, ExpenseManagementContext>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             var container = new ContainerBuilder();
             container.Populate(services);
@@ -64,7 +66,7 @@ namespace Expense.API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.UsePathBase("/api/usermanagement");
+            app.UsePathBase("/api/Expensemanagement");
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -90,14 +92,14 @@ namespace Expense.API
             app.UseStaticFiles();
             app.UseAuthentication();
             app.UseMvc();
-            var context = (UserManagementContext)app.ApplicationServices.GetService(typeof(UserManagementContext));
-            //if (!context.AllMigrationsApplied())
-            //{
-            //    context.Database.Migrate();
-            //    context.EnsureSeed(app.ApplicationServices.GetService<IOptions<UserSettings>>(),
-            //                      app.ApplicationServices.GetService<IHostingEnvironment>(),
-            //                      app.ApplicationServices.GetService<ILogger<UserManagementContext>>());
-            //}
+            var context = (ExpenseManagementContext)app.ApplicationServices.GetService(typeof(ExpenseManagementContext));
+            if (!context.AllMigrationsApplied())
+            {
+                context.Database.Migrate();
+                context.EnsureSeed(app.ApplicationServices.GetService<IOptions<ExpenseSettings>>(),
+                                  app.ApplicationServices.GetService<IHostingEnvironment>(),
+                                  app.ApplicationServices.GetService<ILogger<ExpenseManagementContext>>());
+            }
             //Set Swagger API documentation
             SwaggerConfiguration.Configure(app);
         }

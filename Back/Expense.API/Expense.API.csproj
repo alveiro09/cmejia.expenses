@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
-    <UserSecretsId>be7dad8c-5957-4ab6-915b-22b09d15ec56</UserSecretsId>
+    <ExpenseSecretsId>be7dad8c-5957-4ab6-915b-22b09d15ec56</ExpenseSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
@@ -19,12 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Domain.Core\Domain.Core.csproj" />
-    <ProjectReference Include="..\User.Domain.Infraestructure\UserManagement.Domain.Infraestructure.csproj" />
+    <ProjectReference Include="..\ExpenseManagement.Domain.Infraestructure\ExpenseManagement.Domain.Infraestructure.csproj" />
   </ItemGroup>
 
 

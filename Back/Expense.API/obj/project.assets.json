@@ -4777,37 +4777,30 @@
           "bin/placeholder/Domain.Core.dll": {}
         }
       },
-      "UserManagement.Domain/1.0.0": {
+      "ExpenseManagement.Domain/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v2.1",
         "dependencies": {
-          "Domain.Core": "1.0.0",
-          "Microsoft.EntityFrameworkCore": "2.1.3",
-          "Microsoft.NETCore.App": "2.1.0"
+          "Domain.Core": "1.0.0"
         },
         "compile": {
-          "bin/placeholder/UserManagement.Domain.dll": {}
+          "bin/placeholder/ExpenseManagement.Domain.dll": {}
         },
         "runtime": {
-          "bin/placeholder/UserManagement.Domain.dll": {}
+          "bin/placeholder/ExpenseManagement.Domain.dll": {}
         }
       },
-      "UserManagement.Domain.Infraestructure/1.0.0": {
+      "ExpenseManagement.Domain.Infraestructure/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v2.1",
         "dependencies": {
-          "Domain.Core": "1.0.0",
-          "Microsoft.EntityFrameworkCore": "2.1.3",
-          "Microsoft.EntityFrameworkCore.Design": "2.1.3",
-          "Microsoft.NETCore.App": "2.1.0",
-          "Pomelo.EntityFrameworkCore.MySql": "2.1.2",
-          "UserManagement.Domain": "1.0.0"
+          "ExpenseManagement.Domain": "1.0.0"
         },
         "compile": {
-          "bin/placeholder/UserManagement.Domain.Infraestructure.dll": {}
+          "bin/placeholder/ExpenseManagement.Domain.Infraestructure.dll": {}
         },
         "runtime": {
-          "bin/placeholder/UserManagement.Domain.Infraestructure.dll": {}
+          "bin/placeholder/ExpenseManagement.Domain.Infraestructure.dll": {}
         }
       }
     }
@@ -13076,21 +13069,21 @@
       "path": "../Domain.Core/Domain.Core.csproj",
       "msbuildProject": "../Domain.Core/Domain.Core.csproj"
     },
-    "UserManagement.Domain/1.0.0": {
+    "ExpenseManagement.Domain/1.0.0": {
       "type": "project",
-      "path": "../User.Domain/UserManagement.Domain.csproj",
-      "msbuildProject": "../User.Domain/UserManagement.Domain.csproj"
+      "path": "../ExpenseManagement.Domain/ExpenseManagement.Domain.csproj",
+      "msbuildProject": "../ExpenseManagement.Domain/ExpenseManagement.Domain.csproj"
     },
-    "UserManagement.Domain.Infraestructure/1.0.0": {
+    "ExpenseManagement.Domain.Infraestructure/1.0.0": {
       "type": "project",
-      "path": "../User.Domain.Infraestructure/UserManagement.Domain.Infraestructure.csproj",
-      "msbuildProject": "../User.Domain.Infraestructure/UserManagement.Domain.Infraestructure.csproj"
+      "path": "../ExpenseManagement.Domain.Infraestructure/ExpenseManagement.Domain.Infraestructure.csproj",
+      "msbuildProject": "../ExpenseManagement.Domain.Infraestructure/ExpenseManagement.Domain.Infraestructure.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.1": [
       "Autofac.Extensions.DependencyInjection >= 4.3.1",
-      "Domain.Core >= 1.0.0",
+      "ExpenseManagement.Domain.Infraestructure >= 1.0.0",
       "Microsoft.AspNetCore >= 2.1.1",
       "Microsoft.AspNetCore.App >= 2.1.1",
       "Microsoft.NETCore.App >= 2.1.0",
@@ -13098,12 +13091,12 @@
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 2.1.5",
       "Polly >= 6.0.1",
       "Pomelo.EntityFrameworkCore.MySql >= 2.1.2",
-      "Swashbuckle.AspNetCore >= 4.0.1",
-      "UserManagement.Domain.Infraestructure >= 1.0.0"
+      "Swashbuckle.AspNetCore >= 4.0.1"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\alvei\\.nuget\\packages\\": {}
+    "C:\\Users\\alvei\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
@@ -13114,6 +13107,9 @@
       "packagesPath": "C:\\Users\\alvei\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\alvei\\DEV\\NET\\ExpensesDev\\cmejia.expenses\\Back\\Expense.API\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
       "configFilePaths": [
         "C:\\Users\\alvei\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
@@ -13128,11 +13124,8 @@
       "frameworks": {
         "netcoreapp2.1": {
           "projectReferences": {
-            "C:\\Users\\alvei\\DEV\\NET\\ExpensesDev\\cmejia.expenses\\Back\\Domain.Core\\Domain.Core.csproj": {
-              "projectPath": "C:\\Users\\alvei\\DEV\\NET\\ExpensesDev\\cmejia.expenses\\Back\\Domain.Core\\Domain.Core.csproj"
-            },
-            "C:\\Users\\alvei\\DEV\\NET\\ExpensesDev\\cmejia.expenses\\Back\\User.Domain.Infraestructure\\UserManagement.Domain.Infraestructure.csproj": {
-              "projectPath": "C:\\Users\\alvei\\DEV\\NET\\ExpensesDev\\cmejia.expenses\\Back\\User.Domain.Infraestructure\\UserManagement.Domain.Infraestructure.csproj"
+            "C:\\Users\\alvei\\DEV\\NET\\ExpensesDev\\cmejia.expenses\\Back\\ExpenseManagement.Domain.Infraestructure\\ExpenseManagement.Domain.Infraestructure.csproj": {
+              "projectPath": "C:\\Users\\alvei\\DEV\\NET\\ExpensesDev\\cmejia.expenses\\Back\\ExpenseManagement.Domain.Infraestructure\\ExpenseManagement.Domain.Infraestructure.csproj"
             }
           }
         }

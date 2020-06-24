@@ -1,40 +1,8 @@
-mkdir back
-mkdir front
-mkdir drools
-mkdir reports
-
-cd back
 git clone https://github.com/cristianm009/cmejia.expenses.git
-cd Atlas_2
-git checkout master-backend
-cd ../../front
-cp -rf ../back/* .
-cd Atlas_2
-git checkout master-front
-cd ../../drools
-cp -rf ../back/* .
-cd Atlas_2
-git checkout master-drools
 
-
-cd ../../back/Atlas_2/Atlas
 docker-compose build --no-cache
 docker-compose up -d --force-recreate
 docker ps -a
 
-
-cd ../../../drools/Atlas_2/demo
-docker build -t atlas/drools .  --no-cache
-docker run -d -p 8090:8090 --network-alias=drools.api --network=atlas_default --name atlasdrools atlas/drools 
-
-
-cd ../../../front/Atlas_2
-docker build -t atlas/front . --build-arg frontenv="demo" --no-cache
-docker run -d -p 80:80 --network=atlas_default --name atlasfront atlas/front
-docker exec atlasfront nginx -t
-docker exec atlasfront nginx -s reload
-
-cd ../../../reports
-COPY ../back/Atlas_2/Atlas/reports.sh 
-
-yes | COPY ..\back\Atlas_2\Atlas\reports"dev".sh reports.sh 
+docker system prune
+docker container exec -it {dockerName} /bin/bash

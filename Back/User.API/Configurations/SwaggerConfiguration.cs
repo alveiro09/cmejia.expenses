@@ -7,7 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 
-namespace User.API.Configurations
+namespace Expense.API.Configurations
 {
     /// <summary>
     /// Swagger API documentation components start-up configuration
@@ -25,8 +25,8 @@ namespace User.API.Configurations
                 content.SwaggerDoc("V1",
                     new Info()
                     {
-                        Title = "User API",
-                        Description = "This API provide order management process from ATLAS to external systems like Trajectory.",
+                        Title = "Users API",
+                        Description = "This API provide users management process.",
                         Version = "v1",
                     });
                 content.AddSecurityDefinition("Bearer", new ApiKeyScheme { In = "header", Description = "Please enter JWT with Bearer into field", Name = "Authorization", Type = "apiKey" });

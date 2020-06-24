@@ -1,4 +1,11 @@
-version: '3.4' 
+version: '3.8' 
+volumes: 
+    db_data:  
+networks:
+  atlas_default:
+    name: atlas_default
+    external: false
+
 
 services:   
 
@@ -24,11 +31,24 @@ services:
     depends_on: 
             - mariadb 
     ports: 
-      - "5001:80" 
+      - "9001:80" 
     restart: always 
     build: 
       context: ./Back
       dockerfile: ./User.API/Dockerfile  
-  
-volumes: 
-    db_data:  
+
+  expensemanagement.api: 
+    image: expensemanagementapi 
+    container_name: ExpenseManagement_API 
+    environment:
+      - ConnectionString=server=mariadb;port=3306;database=ExpenseManagementDB;uid=root;pwd=root;Convert Zero Datetime=True;sslmode=none
+    links: 
+          - mariadb:mariadb 
+    depends_on: 
+            - mariadb 
+    ports: 
+      - "9002:80" 
+    restart: always 
+    build: 
+      context: ./Back
+      dockerfile: ./Expense.API/Dockerfile
