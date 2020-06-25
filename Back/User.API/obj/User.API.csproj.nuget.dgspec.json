@@ -13,6 +13,9 @@
         "packagesPath": "C:\\Users\\alvei\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\alvei\\DEV\\NET\\ExpensesDev\\cmejia.expenses\\Back\\Domain.Core\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
           "C:\\Users\\alvei\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
@@ -70,6 +73,9 @@
         "packagesPath": "C:\\Users\\alvei\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\alvei\\DEV\\NET\\ExpensesDev\\cmejia.expenses\\Back\\User.API\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
           "C:\\Users\\alvei\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
@@ -159,6 +165,9 @@
         "packagesPath": "C:\\Users\\alvei\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\alvei\\DEV\\NET\\ExpensesDev\\cmejia.expenses\\Back\\User.Domain.Infraestructure\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
           "C:\\Users\\alvei\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
@@ -237,6 +246,9 @@
         "packagesPath": "C:\\Users\\alvei\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\alvei\\DEV\\NET\\ExpensesDev\\cmejia.expenses\\Back\\User.Domain\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
           "C:\\Users\\alvei\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"

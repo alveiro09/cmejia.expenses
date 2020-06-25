@@ -34,7 +34,7 @@ namespace User.API.Controllers
         /// <summary>
         /// Create a new user. 
         /// </summary>
-        /// <remarks>Endpoint to create a new tenant</remarks>
+        /// <remarks>Endpoint to create a new user</remarks>
         /// <param name="addUserRequest">information about the user</param>
         [HttpPost()]
         [Consumes("application/json")]
@@ -46,21 +46,20 @@ namespace User.API.Controllers
         /// <summary>
         /// Get a user info. 
         /// </summary>
-        /// <remarks>Endpoint to create a new tenant</remarks>
-        /// <param name="id">User id</param>
-        [HttpGet("id")]
+        /// <remarks>Endpoint to get an user</remarks>
+        /// <param name="username">User id</param>
+        [HttpGet("username")]
         [Consumes("application/json")]
-        public Task<UserResponse> GetUser(Guid id)
+        public Task<UserResponse> GetUser(string username)
         {
-            return _userService.GetUser(id);
+            return _userService.GetUser(username);
         }
 
         /// <summary>
         /// Get list of user info. 
         /// </summary>
-        /// <remarks>Endpoint to create a new tenant</remarks>
-        /// <param name="id">User id</param>
-        [HttpGet("id")]
+        /// <remarks>Endpoint to get all the users</remarks>
+        [HttpGet()]
         [Consumes("application/json")]
         public Task<List<UserResponse>> GetUsers()
         {

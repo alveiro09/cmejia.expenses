@@ -21,7 +21,7 @@ namespace User.API.Application.Contracts
         /// Get user
         /// </summary>
         /// <returns></returns>
-        Task<UserResponse> GetUser(Guid id);
+        Task<UserResponse> GetUser(string username);
 
         /// <summary>
         /// Get users
