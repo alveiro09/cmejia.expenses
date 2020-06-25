@@ -3,7 +3,7 @@ using System;
 
 namespace UserManagement.Domain.Model
 {
-    public class User : Entity<Guid>
+    public class User : Entity<string>
     {
         #region Properties
         public string FirstName { get; set; }

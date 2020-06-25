@@ -36,7 +36,7 @@ namespace User.API.Application.Services
             };
             var newUser = new UserManagement.Domain.Model.User()
             {
-                Id = Guid.NewGuid(),
+                //Id = Guid.NewGuid(),
                 Age = addUserRequest.Age,
                 Email = addUserRequest.Email,
                 FirstName = addUserRequest.FirstName,
@@ -59,7 +59,7 @@ namespace User.API.Application.Services
             return result;
         }
 
-        public async Task<UserResponse> GetUser(Guid id)
+        public async Task<UserResponse> GetUser(string username)
         {
             UserResponse result = new UserResponse();
             //var user = (await _userRepository.GetAsync(user => user.Id.Equals(id))).FirstOrDefault();

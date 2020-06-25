@@ -332,3 +332,6 @@ testem.log
 Thumbs.db
 /.metadata/
 /.recommenders/
+
+# dotenv environment variables file
+.env

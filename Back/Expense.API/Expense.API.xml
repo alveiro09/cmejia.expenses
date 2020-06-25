@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Expense.API</name>
+    </assembly>
+    <members>
+        <member name="T:Expense.API.Application.Contracts.IExpenseService">
+            <summary>
+            Service to manager Expenses
+            </summary>
+        </member>
+        <member name="M:Expense.API.Application.Contracts.IExpenseService.AddExpense(Expense.API.Application.Model.Request.AddExpenseRequest)">
+            <summary>
+            Register a new Expense
+            </summary>
+            <param name="addExpenseRequest"></param>
+        </member>
+        <member name="M:Expense.API.Application.Contracts.IExpenseService.GetExpense(System.Guid)">
+            <summary>
+            Get Expense
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Expense.API.Application.Contracts.IExpenseService.GetExpenses">
+            <summary>
+            Get Expenses
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Expense.API.Application.Model.ExpenseSettings">
+            <summary>
+            Settings for the seed of orders
+            </summary>
+        </member>
+        <member name="P:Expense.API.Application.Model.ExpenseSettings.UseSampleData">
+            <summary>
+            Sets if the database is going to be fill with sample data
+            </summary>
+        </member>
+        <member name="M:Expense.API.Application.Services.ExpenseService.#ctor(Domain.Core.Contracts.IUnitOfWork,ExpenseManagement.Domain.Repositories.IExpenseRepository)">
+            <summary>
+            Contructor with the dependencies required
+            </summary>
+            <param name="unitOfWork"></param>
+            <param name="ExpenseRepository"></param>
+        </member>
+        <member name="T:Expense.API.Controllers.ExpenseController">
+            <summary>
+             controller to manage Expense 
+            </summary>
+        </member>
+        <member name="M:Expense.API.Controllers.ExpenseController.#ctor(Expense.API.Application.Contracts.IExpenseService,Microsoft.Extensions.Logging.ILogger{Expense.API.Controllers.ExpenseController})">
+            <summary>
+             Constructor with the environment and repository dependencies
+            </summary>
+            <param name="ExpenseService"></param>
+            <param name="logger"></param>
+        </member>
+        <member name="M:Expense.API.Controllers.ExpenseController.AddExpense(Expense.API.Application.Model.Request.AddExpenseRequest)">
+            <summary>
+            Create a new Expense. 
+            </summary>
+            <remarks>Endpoint to create a new expense</remarks>
+            <param name="addExpenseRequest">information about the Expense</param>
+        </member>
+        <member name="M:Expense.API.Controllers.ExpenseController.GetExpense(System.Guid)">
+            <summary>
+            Get a Expense info. 
+            </summary>
+            <remarks>Endpoint to get an expenses</remarks>
+            <param name="id">Expense id</param>
+        </member>
+        <member name="M:Expense.API.Controllers.ExpenseController.GetExpenses">
+            <summary>
+            Get list of Expense info. 
+            </summary>
+            <remarks>Endpoint to get all the expenses</remarks>
+        </member>
+        <member name="T:Expense.API.Infraestructure.ExpenseContextSeed">
+            <summary>
+            Static class which checks migrations
+            </summary>
+        </member>
+        <member name="M:Expense.API.Infraestructure.ExpenseContextSeed.AllMigrationsApplied(Microsoft.EntityFrameworkCore.DbContext)">
+            <summary>
+            checks if a migration can be applied
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Expense.API.Infraestructure.ExpenseContextSeed.EnsureSeed(ExpenseManagement.Domain.Infraestructure.ExpenseManagementContext,Microsoft.Extensions.Options.IOptions{Expense.API.Application.Model.ExpenseSettings},Microsoft.AspNetCore.Hosting.IHostingEnvironment,Microsoft.Extensions.Logging.ILogger)">
+            <summary>
+            Get the seed to fill the databasse
+            </summary>
+            <param name="context"></param>
+            <param name="settings"></param>
+            <param name="environment"></param>
+            <param name="logger"></param>
+        </member>
+    </members>
+</doc>

@@ -33,7 +33,7 @@ namespace Expense.API.Controllers
         /// <summary>
         /// Create a new Expense. 
         /// </summary>
-        /// <remarks>Endpoint to create a new tenant</remarks>
+        /// <remarks>Endpoint to create a new expense</remarks>
         /// <param name="addExpenseRequest">information about the Expense</param>
         [HttpPost()]
         [Consumes("application/json")]
@@ -45,7 +45,7 @@ namespace Expense.API.Controllers
         /// <summary>
         /// Get a Expense info. 
         /// </summary>
-        /// <remarks>Endpoint to create a new tenant</remarks>
+        /// <remarks>Endpoint to get an expenses</remarks>
         /// <param name="id">Expense id</param>
         [HttpGet("id")]
         [Consumes("application/json")]
@@ -57,9 +57,8 @@ namespace Expense.API.Controllers
         /// <summary>
         /// Get list of Expense info. 
         /// </summary>
-        /// <remarks>Endpoint to create a new tenant</remarks>
-        /// <param name="id">Expense id</param>
-        [HttpGet("id")]
+        /// <remarks>Endpoint to get all the expenses</remarks>
+        [HttpGet()]
         [Consumes("application/json")]
         public Task<List<ExpenseResponse>> GetExpenses()
         {

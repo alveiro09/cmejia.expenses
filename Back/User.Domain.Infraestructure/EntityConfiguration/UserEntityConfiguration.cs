@@ -10,7 +10,7 @@ namespace UserManagement.Domain.Infraestructure.EntityConfiguration
         {
             builder.ToTable("users");
 
-            builder.HasKey(item => item.Id);
+            builder.HasKey(item => item.UserName);
 
             builder.Property(item => item.Age)
                    .HasColumnName("age")
@@ -46,10 +46,6 @@ namespace UserManagement.Domain.Infraestructure.EntityConfiguration
 
             builder.Property(item => item.SecondName)
                    .HasColumnName("secondname");
-
-            builder.Property(item => item.UserName)
-                   .HasColumnName("username")
-                   .IsRequired();
         }
     }
 }
