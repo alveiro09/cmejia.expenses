@@ -20,11 +20,9 @@ services:
     environment: 
         MYSQL_ROOT_PASSWORD: root 
         MYSQL_DATABASE: UserManagementDB     
-    networks:
-      - expenses_network  
   
   usermanagement.api: 
-    image: usermanagementapi 
+    image: ${DOCKER_REGISTRY-}usermanagementapi 
     container_name: UserManagement_API 
     environment:
       - ConnectionString=server=mariadb;port=3306;database=UserManagementDB;uid=root;pwd=root;Convert Zero Datetime=True;sslmode=none
@@ -38,11 +36,11 @@ services:
     build: 
       context: ./Back
       dockerfile: ./User.API/Dockerfile
-    networks:
-      - expenses_network  
+    #networks:
+    #  - expenses_network  
 
   expensemanagement.api: 
-    image: expensemanagementapi 
+    image: ${DOCKER_REGISTRY-}expensemanagementapi 
     container_name: ExpenseManagement_API 
     environment:
       - ConnectionString=server=mariadb;port=3306;database=ExpenseManagementDB;uid=root;pwd=root;Convert Zero Datetime=True;sslmode=none
@@ -56,5 +54,5 @@ services:
     build: 
       context: ./Back
       dockerfile: ./Expense.API/Dockerfile
-    networks:
-      - expenses_network
+    #networks:
+    #  - expenses_network
