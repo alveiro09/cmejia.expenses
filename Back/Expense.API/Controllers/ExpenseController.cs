@@ -37,7 +37,7 @@ namespace Expense.API.Controllers
         /// <param name="addExpenseRequest">information about the Expense</param>
         [HttpPost()]
         [Consumes("application/json")]
-        public AddExpenseResponse AddExpense([FromBody]AddExpenseRequest addExpenseRequest)
+        public Task<IActionResult> AddExpense([FromBody]AddExpenseRequest addExpenseRequest)
         {
             return _ExpenseService.AddExpense(addExpenseRequest);
         }
@@ -49,7 +49,7 @@ namespace Expense.API.Controllers
         /// <param name="id">Expense id</param>
         [HttpGet("id")]
         [Consumes("application/json")]
-        public Task<ExpenseResponse> GetExpense(Guid id)
+        public Task<IActionResult> GetExpense(Guid id)
         {
             return _ExpenseService.GetExpense(id);
         }
@@ -60,7 +60,7 @@ namespace Expense.API.Controllers
         /// <remarks>Endpoint to get all the expenses</remarks>
         [HttpGet()]
         [Consumes("application/json")]
-        public Task<List<ExpenseResponse>> GetExpenses()
+        public Task<IActionResult> GetExpenses()
         {
             return _ExpenseService.GetExpenses();
         }

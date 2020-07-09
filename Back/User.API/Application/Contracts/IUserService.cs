@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using User.API.Application.Model.Request;
@@ -15,19 +16,19 @@ namespace User.API.Application.Contracts
         /// Register a new user
         /// </summary>
         /// <param name="addUserRequest"></param>
-        AddUserResponse AddUser(AddUserRequest addUserRequest);
+        Task<IActionResult> AddUser(AddUserRequest addUserRequest);
 
         /// <summary>
         /// Get user
         /// </summary>
         /// <returns></returns>
-        Task<UserResponse> GetUser(string username);
+        Task<IActionResult> GetUser(string username);
 
         /// <summary>
         /// Get users
         /// </summary>
         /// <returns></returns>
-        Task<List<UserResponse>> GetUsers();
+        Task<IActionResult> GetUsers();
 
     }
 }

@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ExpenseManagement.Domain.Infraestructure\ExpenseManagement.Domain.Infraestructure.csproj" />
+    <ProjectReference Include="..\User.Domain.Infraestructure\UserManagement.Domain.Infraestructure.csproj" />
   </ItemGroup>
 
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">

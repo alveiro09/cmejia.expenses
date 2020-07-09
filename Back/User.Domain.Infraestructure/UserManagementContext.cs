@@ -18,6 +18,7 @@ namespace UserManagement.Domain.Infraestructure
         {
         }
 
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new UserEntityConfiguration());

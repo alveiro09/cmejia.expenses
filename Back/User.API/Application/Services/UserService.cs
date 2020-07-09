@@ -1,4 +1,5 @@
 ﻿using Domain.Core.Contracts;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,19 +14,21 @@ namespace User.API.Application.Services
     public class UserService : IUserService
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IUserRepository _userRepository;
+        private readonly IUserRepository _userRepositoryGeneric;
+        private readonly IRepository<UserManagement.Domain.Model.User> _userRepository;
 
         /// <summary>
         /// Contructor with the dependencies required
         /// </summary>
         /// <param name="unitOfWork"></param>
-        /// <param name="userRepository"></param>
-        public UserService(IUnitOfWork unitOfWork, IUserRepository userRepository)
+        /// <param name="userRepositoryGeneric"></param>
+        public UserService(IUnitOfWork unitOfWork, IUserRepository userRepositoryGeneric)
         {
             _unitOfWork = unitOfWork;
-            _userRepository = userRepository;
+            _userRepositoryGeneric = userRepositoryGeneric;
+            _userRepository = _unitOfWork.GetRepository<UserManagement.Domain.Model.User>();
         }
-        public AddUserResponse AddUser(AddUserRequest addUserRequest)
+        public async Task<IActionResult> AddUser(AddUserRequest addUserRequest)
         {
             AddUserResponse result = new AddUserResponse()
             {
@@ -36,7 +39,7 @@ namespace User.API.Application.Services
             };
             var newUser = new UserManagement.Domain.Model.User()
             {
-                //Id = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
                 Age = addUserRequest.Age,
                 Email = addUserRequest.Email,
                 FirstName = addUserRequest.FirstName,
@@ -50,44 +53,53 @@ namespace User.API.Application.Services
             try
             {
                 _userRepository.Add(newUser);
-                result.Added = true;
+                var commit = _unitOfWork.Commit();
+                result.Added = commit > 0;
             }
             catch (System.Exception exception)
             {
                 result.Message = exception.Message;
             }
-            return result;
+            return new OkObjectResult(result);
         }
 
-        public async Task<UserResponse> GetUser(string username)
+        public async Task<IActionResult> GetUser(string username)
         {
             UserResponse result = new UserResponse();
-            //var user = (await _userRepository.GetAsync(user => user.Id.Equals(id))).FirstOrDefault();
-            var user = (await _userRepository.GetAsync()).FirstOrDefault();
-            if (user != null)
+            var userToFind = (await _userRepository.GetAsync(user => user.UserName.Equals(username))).FirstOrDefault();
+            if (userToFind != null)
             {
-                result.FirstName = user.FirstName;
-                result.UserName = user.UserName;
+                result.FirstName = userToFind.FirstName;
+                result.UserName = userToFind.UserName;
+                return new OkObjectResult(result);
             }
-            return result;
+            else return new NotFoundResult();
         }
 
-        public async Task<List<UserResponse>> GetUsers()
+        public async Task<IActionResult> GetUsers()
         {
             List<UserResponse> result = new List<UserResponse>();
-            var users = await _userRepository.GetAsync();
-            if (users != null)
+            try
             {
-                foreach (UserManagement.Domain.Model.User user in users)
+                var users = await _userRepository.GetAsync();
+                if (users != null)
                 {
-                    result.Add(new UserResponse
+                    foreach (UserManagement.Domain.Model.User user in users)
                     {
-                        FirstName = user.FirstName,
-                        UserName = user.UserName
-                    });
+                        result.Add(new UserResponse
+                        {
+                            FirstName = user.FirstName,
+                            UserName = user.UserName
+                        });
+                    }
+                    return new OkObjectResult(result);
                 }
+                else return new NotFoundResult();
             }
-            return result;
+            catch (Exception ex)
+            {
+                return new BadRequestObjectResult(result);
+            }
         }
     }
 }

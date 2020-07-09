@@ -47,18 +47,9 @@ namespace User.API.Infraestructure
         public static void EnsureSeed(this UserManagementContext context, IOptions<UserSettings> settings, IHostingEnvironment environment, ILogger logger)
         {
             var seedPolicy = CreateSeedPolicy(logger, nameof(UserContextSeed));
-
             seedPolicy.Execute(() =>
             {
                 var useSampleData = settings.Value.UseSampleData;
-
-                //if (!context.Categories.Any())
-                //{
-                //    context.Categories.AddRange(useSampleData ? CategorySeed.GetSampleCategories() :
-                //                                                CategorySeed.GetCategoriesFromFile(environment.ContentRootPath, logger));
-                //}
-
-                
                 context.SaveChangesAsync();
             });
         }

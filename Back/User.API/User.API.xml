@@ -42,7 +42,7 @@
             Contructor with the dependencies required
             </summary>
             <param name="unitOfWork"></param>
-            <param name="userRepository"></param>
+            <param name="userRepositoryGeneric"></param>
         </member>
         <member name="T:User.API.Controllers.UserController">
             <summary>

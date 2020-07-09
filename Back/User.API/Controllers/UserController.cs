@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using User.API.Application.Contracts;
 using User.API.Application.Model.Request;
 using User.API.Application.Model.Response;
@@ -38,7 +36,7 @@ namespace User.API.Controllers
         /// <param name="addUserRequest">information about the user</param>
         [HttpPost()]
         [Consumes("application/json")]
-        public AddUserResponse AddUser([FromBody]AddUserRequest addUserRequest)
+        public Task<IActionResult> AddUser([FromBody]AddUserRequest addUserRequest)
         {
             return _userService.AddUser(addUserRequest);
         }
@@ -50,7 +48,7 @@ namespace User.API.Controllers
         /// <param name="username">User id</param>
         [HttpGet("username")]
         [Consumes("application/json")]
-        public Task<UserResponse> GetUser(string username)
+        public Task<IActionResult> GetUser(string username)
         {
             return _userService.GetUser(username);
         }
@@ -61,7 +59,7 @@ namespace User.API.Controllers
         /// <remarks>Endpoint to get all the users</remarks>
         [HttpGet()]
         [Consumes("application/json")]
-        public Task<List<UserResponse>> GetUsers()
+        public Task<IActionResult> GetUsers()
         {
             return _userService.GetUsers();
         }

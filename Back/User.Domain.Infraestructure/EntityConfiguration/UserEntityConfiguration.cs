@@ -12,6 +12,10 @@ namespace UserManagement.Domain.Infraestructure.EntityConfiguration
 
             builder.HasKey(item => item.UserName);
 
+            builder.Property(item => item.Id)
+                .HasColumnName("id")
+                .IsRequired();
+
             builder.Property(item => item.Age)
                    .HasColumnName("age")
                    .IsRequired();

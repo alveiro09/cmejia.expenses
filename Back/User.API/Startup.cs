@@ -9,6 +9,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.Collections.Generic;
@@ -16,7 +19,9 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using User.API.Application.Contracts;
+using User.API.Application.Model;
 using User.API.Application.Services;
+using User.API.Infraestructure;
 using UserManagement.Domain.Infraestructure;
 using UserManagement.Domain.Infraestructure.Repositories;
 using UserManagement.Domain.Repositories;
@@ -44,21 +49,26 @@ namespace User.API
         {
             //IoC
             //IoCContainerConfiguration.ConfigureService(services);
+
+
             services.AddMvc(option =>
             {
 
             }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             //DB
-            services.AddEntityFrameworkMySql().AddDbContext<UserManagementContext>(options =>
-            {
-                options.UseMySql(Configuration.GetSection("ConnectionString").Value,
-                mySqlOptionsAction: mysqlOpt =>
-                {
-                    mysqlOpt.MigrationsAssembly(typeof(UserManagementContext).Assembly.GetName().Name);
-                });
-            }, ServiceLifetime.Scoped);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddDbContextPool<UserManagementContext>(
+                options => options.UseMySql(Configuration.GetSection("ConnectionString").Value,
+                    mySqlOptions =>
+                    {
+                        mySqlOptions.ServerVersion(new Version(5, 7), ServerType.MySql);
+                    }
+            ));
             services.AddScoped<IDbContext, UserManagementContext>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
+
+            services.Configure<UserSettings>(Configuration);
+            
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
             //Swagger
@@ -117,13 +127,13 @@ namespace User.API
             app.UseAuthentication();
             app.UseMvc();
             var context = (UserManagementContext)app.ApplicationServices.GetService(typeof(UserManagementContext));
-            //if (!context.AllMigrationsApplied())
-            //{
-            //    context.Database.Migrate();
-            //    context.EnsureSeed(app.ApplicationServices.GetService<IOptions<UserSettings>>(),
-            //                      app.ApplicationServices.GetService<IHostingEnvironment>(),
-            //                      app.ApplicationServices.GetService<ILogger<UserManagementContext>>());
-            //}
+            if (!context.AllMigrationsApplied())
+            {
+                context.Database.Migrate();
+                context.EnsureSeed(app.ApplicationServices.GetService<IOptions<UserSettings>>(),
+                                  app.ApplicationServices.GetService<IHostingEnvironment>(),
+                                  app.ApplicationServices.GetService<ILogger<UserManagementContext>>());
+            }
             //Set Swagger API documentation
             app.UseSwagger();
             app.UseSwaggerUI(config =>

@@ -14,12 +14,12 @@ namespace UserManagement.Domain.Infraestructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.3-rtm-32065")
+                .HasAnnotation("ProductVersion", "2.1.14-servicing-32113")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("UserManagement.Domain.Model.User", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<string>("UserName")
                         .ValueGeneratedOnAdd();
 
                     b.Property<int>("Age")
@@ -36,6 +36,9 @@ namespace UserManagement.Domain.Infraestructure.Migrations
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnName("firstname");
+
+                    b.Property<Guid>("Id")
+                        .HasColumnName("id");
 
                     b.Property<int>("IdentityDocument")
                         .HasColumnName("identitydocument");
@@ -54,11 +57,7 @@ namespace UserManagement.Domain.Infraestructure.Migrations
                     b.Property<string>("SecondName")
                         .HasColumnName("secondname");
 
-                    b.Property<string>("UserName")
-                        .IsRequired()
-                        .HasColumnName("username");
-
-                    b.HasKey("Id");
+                    b.HasKey("UserName");
 
                     b.ToTable("users");
                 });

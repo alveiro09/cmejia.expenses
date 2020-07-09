@@ -3,6 +3,7 @@ using Expense.API.Application.Contracts;
 using Expense.API.Application.Model.Request;
 using Expense.API.Application.Model.Response;
 using ExpenseManagement.Domain.Repositories;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,19 +14,21 @@ namespace Expense.API.Application.Services
     public class ExpenseService : IExpenseService
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IExpenseRepository _ExpenseRepository;
+        private readonly IExpenseRepository _expenseRepositoryGeneric;
+        private readonly IRepository<ExpenseManagement.Domain.Model.Expense> _expenseRepository;
 
         /// <summary>
         /// Contructor with the dependencies required
         /// </summary>
         /// <param name="unitOfWork"></param>
-        /// <param name="ExpenseRepository"></param>
-        public ExpenseService(IUnitOfWork unitOfWork, IExpenseRepository ExpenseRepository)
+        /// <param name="ExpenseRepositexpenseRepositoryGenericoryGeneric"></param>
+        public ExpenseService(IUnitOfWork unitOfWork, IExpenseRepository expenseRepositoryGeneric)
         {
             _unitOfWork = unitOfWork;
-            _ExpenseRepository = ExpenseRepository;
+            _expenseRepositoryGeneric = expenseRepositoryGeneric;
+            _expenseRepository = _unitOfWork.GetRepository<ExpenseManagement.Domain.Model.Expense>();
         }
-        public AddExpenseResponse AddExpense(AddExpenseRequest addExpenseRequest)
+        public async Task<IActionResult> AddExpense(AddExpenseRequest addExpenseRequest)
         {
             AddExpenseResponse result = new AddExpenseResponse()
             {
@@ -42,43 +45,46 @@ namespace Expense.API.Application.Services
             };
             try
             {
-                _ExpenseRepository.Add(newExpense);
-                result.Added = true;
+                _expenseRepository.Add(newExpense);
+                var commit = _unitOfWork.Commit();
+                result.Added = commit > 0;
             }
             catch (System.Exception exception)
             {
                 result.Message = exception.Message;
             }
-            return result;
+            return new OkObjectResult(result);
         }
 
-        public async Task<ExpenseResponse> GetExpense(Guid id)
+        public async Task<IActionResult> GetExpense(Guid id)
         {
             ExpenseResponse result = new ExpenseResponse();
-            //var Expense = (await _ExpenseRepository.GetAsync(Expense => Expense.Id.Equals(id))).FirstOrDefault();
-            var Expense = (await _ExpenseRepository.GetAsync()).FirstOrDefault();
-            if (Expense != null)
+            var ExpenseToFind = (await _expenseRepository.GetAsync(Expense => Expense.Id.Equals(id))).FirstOrDefault();
+            if (ExpenseToFind != null)
             {
-                result.Name = Expense.Name;
-                result.Value = Expense.Value;
-                result.PaidOut = Expense.PaidOut;
-                result.Created = Expense.Created;
-                result.DatePaidOut = Expense.DatePaidOut;
-                result.Description = Expense.Description;
+                result.Id = ExpenseToFind.Id;
+                result.Name = ExpenseToFind.Name;
+                result.Value = ExpenseToFind.Value;
+                result.PaidOut = ExpenseToFind.PaidOut;
+                result.Created = ExpenseToFind.Created;
+                result.DatePaidOut = ExpenseToFind.DatePaidOut;
+                result.Description = ExpenseToFind.Description;
+                return new OkObjectResult(result);
             }
-            return result;
+            else return new NotFoundResult();
         }
 
-        public async Task<List<ExpenseResponse>> GetExpenses()
+        public async Task<IActionResult> GetExpenses()
         {
             List<ExpenseResponse> result = new List<ExpenseResponse>();
-            var Expenses = await _ExpenseRepository.GetAsync();
+            var Expenses = await _expenseRepository.GetAsync();
             if (Expenses != null)
             {
                 foreach (ExpenseManagement.Domain.Model.Expense Expense in Expenses)
                 {
                     result.Add(new ExpenseResponse
                     {
+                        Id=Expense.Id,
                         Name = Expense.Name,
                         Value = Expense.Value,
                         PaidOut = Expense.PaidOut,
@@ -88,7 +94,7 @@ namespace Expense.API.Application.Services
                     });
                 }
             }
-            return result;
+            return new OkObjectResult(result);
         }
     }
 }

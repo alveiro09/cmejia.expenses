@@ -1,58 +1,45 @@
-version: '3.8' 
-volumes: 
-    db_data:  
-networks:
-  expenses_network:
-    name: expenses_network
-    external: false
+version: '3.4'
 
+services:
 
-services:   
-
-  mariadb: 
-    container_name: ExpensesMariaDB 
-    image: mariadb 
-    volumes:             
-      - db_data:/var/lib/mysql
-    ports: 
-      - "3306:3306" 
-    restart: always 
-    environment: 
-        MYSQL_ROOT_PASSWORD: root 
-        MYSQL_DATABASE: UserManagementDB     
-  
-  usermanagement.api: 
-    image: ${DOCKER_REGISTRY-}usermanagementapi 
-    container_name: UserManagement_API 
+  mysql:
+    image: mysql:8.0.17
     environment:
-      - ConnectionString=server=mariadb;port=3306;database=UserManagementDB;uid=root;pwd=root;Convert Zero Datetime=True;sslmode=none
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: usermanagementdb
+    ports:
+      - "3308:3306"
+
+  usermanagement.api:
+    image: usermanagementapi
+    container_name: UserManagement_API    
+    environment:
+      - ConnectionString=server=127.0.0.1;port=3308;database=expensesmanagementdb;uid=root;pwd=root;Convert Zero Datetime=True;sslmode=none
     links: 
-          - mariadb:mariadb 
-    depends_on: 
-            - mariadb 
-    ports: 
-      - "9001:80" 
+          - mysql:mysql     
+    depends_on:
+      - mysql
+    ports:
+      - "5001:80"
     restart: always 
-    build: 
+    build:
       context: ./Back
       dockerfile: ./User.API/Dockerfile
-    #networks:
-    #  - expenses_network  
 
-  expensemanagement.api: 
-    image: ${DOCKER_REGISTRY-}expensemanagementapi 
-    container_name: ExpenseManagement_API 
+  expensesmanagement.api:
+    image: expensesmanagementapi
+    container_name: ExpensesManagement_API    
     environment:
-      - ConnectionString=server=mariadb;port=3306;database=ExpenseManagementDB;uid=root;pwd=root;Convert Zero Datetime=True;sslmode=none
+      - ConnectionString=server=127.0.0.1;port=3308;database=expensesmanagementdb;uid=root;pwd=root;Convert Zero Datetime=True;sslmode=none
     links: 
-          - mariadb:mariadb 
-    depends_on: 
-            - mariadb 
-    ports: 
-      - "9002:80" 
+          - mysql:mysql     
+    depends_on:
+      - mysql
+    ports:
+      - "5002:80"
     restart: always 
-    build: 
+    build:
       context: ./Back
       dockerfile: ./Expense.API/Dockerfile
-    #networks:
-    #  - expenses_network
+
+  

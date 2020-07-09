@@ -1,21 +1,25 @@
 #See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
 
-FROM mcr.microsoft.com/dotnet/core/sdk:2.1-stretch AS base
+FROM mcr.microsoft.com/dotnet/core/aspnet:2.1-stretch-slim AS base
 WORKDIR /app
 EXPOSE 80
+EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/core/sdk:2.1-stretch AS build
 WORKDIR /src
 COPY ["User.API/User.API.csproj", "User.API/"]
+COPY ["User.Domain.Infraestructure/UserManagement.Domain.Infraestructure.csproj", "User.Domain.Infraestructure/"]
+COPY ["Domain.Core/Domain.Core.csproj", "Domain.Core/"]
+COPY ["User.Domain/UserManagement.Domain.csproj", "User.Domain/"]
 RUN dotnet restore "User.API/User.API.csproj"
 COPY . .
 WORKDIR "/src/User.API"
-RUN dotnet build "User.API.csproj" -c Release -o /app
+RUN dotnet build "User.API.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "User.API.csproj" -c Release -o /app
+RUN dotnet publish "User.API.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
-COPY --from=publish /app .
+COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "User.API.dll"]

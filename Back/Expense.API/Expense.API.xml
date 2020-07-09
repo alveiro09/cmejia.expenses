@@ -42,7 +42,7 @@
             Contructor with the dependencies required
             </summary>
             <param name="unitOfWork"></param>
-            <param name="ExpenseRepository"></param>
+            <param name="ExpenseRepositexpenseRepositoryGenericoryGeneric"></param>
         </member>
         <member name="T:Expense.API.Controllers.ExpenseController">
             <summary>

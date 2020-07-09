@@ -2,7 +2,10 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Domain.Core.Base;
 using Domain.Core.Contracts;
+using Expense.API.Application.Contracts;
+using Expense.API.Application.Model;
 using Expense.API.Application.Services;
+using Expense.API.Infraestructure;
 using ExpenseManagement.Domain.Infraestructure;
 using ExpenseManagement.Domain.Infraestructure.Repositories;
 using ExpenseManagement.Domain.Repositories;
@@ -13,6 +16,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.Collections.Generic;
@@ -48,18 +54,21 @@ namespace Expense.API
 
             }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             //DB
-            services.AddEntityFrameworkMySql().AddDbContext<ExpenseManagementContext>(options =>
-            {
-                options.UseMySql(Configuration.GetSection("ConnectionString").Value,
-                mySqlOptionsAction: mysqlOpt =>
-                {
-                    mysqlOpt.MigrationsAssembly(typeof(ExpenseManagementContext).Assembly.GetName().Name);
-                });
-            }, ServiceLifetime.Scoped);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddDbContextPool<ExpenseManagementContext>(
+                options => options.UseMySql(Configuration.GetSection("ConnectionString").Value,
+                    mySqlOptions =>
+                    {
+                        mySqlOptions.ServerVersion(new Version(5, 7), ServerType.MySql);
+                    }
+            ));
             services.AddScoped<IDbContext, ExpenseManagementContext>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
+
+            services.Configure<ExpenseSettings>(Configuration);
+
             services.AddScoped<IExpenseRepository, ExpenseRepository>();
-            services.AddScoped<ExpenseService, ExpenseService>();
+            services.AddScoped<IExpenseService, ExpenseService>();
             //Swagger
             services.AddSwaggerGen(content =>
             {
@@ -116,13 +125,13 @@ namespace Expense.API
             app.UseAuthentication();
             app.UseMvc();
             var context = (ExpenseManagementContext)app.ApplicationServices.GetService(typeof(ExpenseManagementContext));
-            //if (!context.AllMigrationsApplied())
-            //{
-            //    context.Database.Migrate();
-            //    context.EnsureSeed(app.ApplicationServices.GetService<IOptions<UserSettings>>(),
-            //                      app.ApplicationServices.GetService<IHostingEnvironment>(),
-            //                      app.ApplicationServices.GetService<ILogger<UserManagementContext>>());
-            //}
+            if (!context.AllMigrationsApplied())
+            {
+                context.Database.Migrate();
+                context.EnsureSeed(app.ApplicationServices.GetService<IOptions<ExpenseSettings>>(),
+                                  app.ApplicationServices.GetService<IHostingEnvironment>(),
+                                  app.ApplicationServices.GetService<ILogger<ExpenseManagementContext>>());
+            }
             //Set Swagger API documentation
             app.UseSwagger();
             app.UseSwaggerUI(config =>
