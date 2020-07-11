@@ -50,6 +50,9 @@ namespace UserManagement.Domain.Infraestructure.EntityConfiguration
 
             builder.Property(item => item.SecondName)
                    .HasColumnName("secondname");
+
+            builder.Property(item => item.LastName)
+                  .HasColumnName("lastname");
         }
     }
 }

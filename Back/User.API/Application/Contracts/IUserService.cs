@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using User.API.Application.Model.Request;
-using User.API.Application.Model.Response;
 
 namespace User.API.Application.Contracts
 {
@@ -30,5 +27,10 @@ namespace User.API.Application.Contracts
         /// <returns></returns>
         Task<IActionResult> GetUsers();
 
+        /// <summary>
+        /// Authenticate
+        /// </summary>
+        /// <returns></returns>
+        Task<IActionResult> Authenticate(UserInfoRequest userInforequest);
     }
 }

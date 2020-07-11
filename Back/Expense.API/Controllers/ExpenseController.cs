@@ -1,10 +1,9 @@
 ﻿using Expense.API.Application.Contracts;
 using Expense.API.Application.Model.Request;
-using Expense.API.Application.Model.Response;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Expense.API.Controllers
@@ -12,9 +11,12 @@ namespace Expense.API.Controllers
     /// <summary>
     ///  controller to manage Expense 
     /// </summary>
-    [Route("api/[controller]")]
+
+    [Authorize]
+    [Microsoft.AspNetCore.Mvc.Route("[controller]")]
+    [Produces("application/json")]
     [ApiController]
-    public class ExpenseController : ControllerBase
+    public class ExpenseController : Controller
     {
         private readonly IExpenseService _ExpenseService;
         private readonly ILogger<ExpenseController> _logger;

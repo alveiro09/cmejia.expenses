@@ -47,6 +47,9 @@ namespace UserManagement.Domain.Infraestructure.Migrations
                         .IsRequired()
                         .HasColumnName("identitynumber");
 
+                    b.Property<string>("LastName")
+                        .HasColumnName("lastname");
+
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnName("password");

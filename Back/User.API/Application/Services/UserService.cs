@@ -15,6 +15,7 @@ namespace User.API.Application.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IUserRepository _userRepositoryGeneric;
+        private readonly ITokenAuthentication _tokenAuthentication;
         private readonly IRepository<UserManagement.Domain.Model.User> _userRepository;
 
         /// <summary>
@@ -22,9 +23,11 @@ namespace User.API.Application.Services
         /// </summary>
         /// <param name="unitOfWork"></param>
         /// <param name="userRepositoryGeneric"></param>
-        public UserService(IUnitOfWork unitOfWork, IUserRepository userRepositoryGeneric)
+        /// <param name="tokenAuthentication"></param>
+        public UserService(IUnitOfWork unitOfWork, IUserRepository userRepositoryGeneric, ITokenAuthentication tokenAuthentication)
         {
             _unitOfWork = unitOfWork;
+            _tokenAuthentication = tokenAuthentication;
             _userRepositoryGeneric = userRepositoryGeneric;
             _userRepository = _unitOfWork.GetRepository<UserManagement.Domain.Model.User>();
         }
@@ -99,6 +102,26 @@ namespace User.API.Application.Services
             catch (Exception ex)
             {
                 return new BadRequestObjectResult(result);
+            }
+        }
+
+        public async Task<IActionResult> Authenticate(UserInfoRequest userInforequest)
+        {
+            UserResponse result = new UserResponse();
+            try
+            {
+                var userToFind = (await _userRepository.GetAsync(user => user.Email.ToLower().Equals(userInforequest.Mail.ToLower()))).FirstOrDefault();
+                if (userToFind != null)
+                {
+                    var tokenInfo = new TokenResponse() { FirsName = userToFind.FirstName, LastName = userToFind.LastName, Mail = userToFind.Email, UserName = userToFind.UserName };
+                    var token = _tokenAuthentication.BuildToken(tokenInfo);
+                    return new OkObjectResult(token);
+                }
+                else return new NotFoundResult();
+            }
+            catch (Exception exception)
+            {
+                return new BadRequestResult();
             }
         }
     }

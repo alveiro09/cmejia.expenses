@@ -9,6 +9,7 @@ using Expense.API.Infraestructure;
 using ExpenseManagement.Domain.Infraestructure;
 using ExpenseManagement.Domain.Infraestructure.Repositories;
 using ExpenseManagement.Domain.Repositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -18,6 +19,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
@@ -25,6 +27,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 
 namespace Expense.API
 {
@@ -89,6 +92,21 @@ namespace Expense.API
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 content.IncludeXmlComments(xmlPath);
             });
+            //authentication
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(option =>
+            {
+                option.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = Configuration["Jwt:Issuer"],
+                    ValidAudience = Configuration["Jwt:Issuer"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
+                };
+            });
             //
             var container = new ContainerBuilder();
             container.Populate(services);
@@ -98,7 +116,7 @@ namespace Expense.API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.UsePathBase("/api/usermanagement");
+            app.UsePathBase("/api/expensemanagement");
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -140,7 +158,6 @@ namespace Expense.API
                 config.SwaggerEndpoint("./swagger/v1/swagger.json", "Expenses");
                 config.RoutePrefix = string.Empty;
             });
-            app.UseDeveloperExceptionPage();
         }
     }
 }

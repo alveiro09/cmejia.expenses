@@ -8,6 +8,7 @@ namespace UserManagement.Domain.Model
         #region Properties
         public string FirstName { get; set; }
         public string SecondName { get; set; }
+        public string LastName { get; set; }
         public string IdentityNumber { get; set; }
         public int IdentityDocument { get; set; }
         public string Email { get; set; }

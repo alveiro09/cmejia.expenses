@@ -2,6 +2,7 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Domain.Core.Base;
 using Domain.Core.Contracts;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -11,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
@@ -18,6 +20,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using User.API.Application.Contracts;
 using User.API.Application.Model;
 using User.API.Application.Services;
@@ -71,6 +74,8 @@ namespace User.API
             
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
+            services.AddTransient<ITokenAuthentication, TokenAuthentication>(provider => new TokenAuthentication(Configuration));
+
             //Swagger
             services.AddSwaggerGen(content =>
             {
@@ -90,6 +95,22 @@ namespace User.API
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 content.IncludeXmlComments(xmlPath);
+            });
+            //authentication
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(option =>
+            {
+                option.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = Configuration["Jwt:Issuer"],
+                    ValidAudience = Configuration["Jwt:Issuer"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"])),
+                    SaveSigninToken = true
+                };
             });
             //
             var container = new ContainerBuilder();
@@ -142,7 +163,6 @@ namespace User.API
                 config.SwaggerEndpoint("./swagger/v1/swagger.json", "Users");
                 config.RoutePrefix = string.Empty;
             });
-            app.UseDeveloperExceptionPage();
         }
     }
 }

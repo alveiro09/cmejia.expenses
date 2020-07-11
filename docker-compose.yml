@@ -14,7 +14,7 @@ services:
     image: usermanagementapi
     container_name: UserManagement_API    
     environment:
-      - ConnectionString=server=127.0.0.1;port=3308;database=expensesmanagementdb;uid=root;pwd=root;Convert Zero Datetime=True;sslmode=none
+      - ConnectionString=server=mysql;port=3308;database=expensesmanagementdb;uid=root;pwd=root;Convert Zero Datetime=True;sslmode=none
     links: 
           - mysql:mysql     
     depends_on:
@@ -30,7 +30,7 @@ services:
     image: expensesmanagementapi
     container_name: ExpensesManagement_API    
     environment:
-      - ConnectionString=server=127.0.0.1;port=3308;database=expensesmanagementdb;uid=root;pwd=root;Convert Zero Datetime=True;sslmode=none
+      - ConnectionString=server=mysql;port=3308;database=expensesmanagementdb;uid=root;pwd=root;Convert Zero Datetime=True;sslmode=none
     links: 
           - mysql:mysql     
     depends_on:

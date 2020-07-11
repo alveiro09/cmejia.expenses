@@ -1,19 +1,20 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Web.Http;
 using User.API.Application.Contracts;
 using User.API.Application.Model.Request;
-using User.API.Application.Model.Response;
 
 namespace User.API.Controllers
 {
     /// <summary>
     ///  controller to manage user 
     /// </summary>
-    [Route("api/[controller]")]
+    [Authorize]
+    [Microsoft.AspNetCore.Mvc.Route("[controller]")]
+    [Produces("application/json")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class UserController : Controller
     {
         private readonly IUserService _userService;
         private readonly ILogger<UserController> _logger;
@@ -34,9 +35,10 @@ namespace User.API.Controllers
         /// </summary>
         /// <remarks>Endpoint to create a new user</remarks>
         /// <param name="addUserRequest">information about the user</param>
-        [HttpPost()]
+        [Microsoft.AspNetCore.Mvc.HttpPost()]
         [Consumes("application/json")]
-        public Task<IActionResult> AddUser([FromBody]AddUserRequest addUserRequest)
+        [Produces("application/json")]
+        public Task<IActionResult> AddUser([Microsoft.AspNetCore.Mvc.FromBody]AddUserRequest addUserRequest)
         {
             return _userService.AddUser(addUserRequest);
         }
@@ -46,8 +48,8 @@ namespace User.API.Controllers
         /// </summary>
         /// <remarks>Endpoint to get an user</remarks>
         /// <param name="username">User id</param>
-        [HttpGet("username")]
-        [Consumes("application/json")]
+        [Microsoft.AspNetCore.Mvc.HttpGet("username")]
+        [Produces("application/json")]
         public Task<IActionResult> GetUser(string username)
         {
             return _userService.GetUser(username);
@@ -57,11 +59,22 @@ namespace User.API.Controllers
         /// Get list of user info. 
         /// </summary>
         /// <remarks>Endpoint to get all the users</remarks>
-        [HttpGet()]
-        [Consumes("application/json")]
+        [Microsoft.AspNetCore.Mvc.HttpGet()]
+        [Produces("application/json")]
         public Task<IActionResult> GetUsers()
         {
             return _userService.GetUsers();
+        }
+        /// <summary>
+        /// Get list of user info. 
+        /// </summary>
+        /// <remarks>Endpoint to get all the users</remarks>
+        [Microsoft.AspNetCore.Mvc.HttpPost("authenticate")]
+        [Produces("application/json")]
+        [AllowAnonymous]
+        public Task<IActionResult> Autenticate([Microsoft.AspNetCore.Mvc.FromBody]UserInfoRequest userInfoRequest)
+        {
+            return _userService.Authenticate(userInfoRequest);
         }
     }
 }

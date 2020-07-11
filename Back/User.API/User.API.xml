@@ -27,6 +27,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:User.API.Application.Contracts.IUserService.Authenticate(User.API.Application.Model.Request.UserInfoRequest)">
+            <summary>
+            Authenticate
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:User.API.Application.Model.UserSettings">
             <summary>
             Settings for the seed of orders
@@ -37,12 +43,13 @@
             Sets if the database is going to be fill with sample data
             </summary>
         </member>
-        <member name="M:User.API.Application.Services.UserService.#ctor(Domain.Core.Contracts.IUnitOfWork,UserManagement.Domain.Repositories.IUserRepository)">
+        <member name="M:User.API.Application.Services.UserService.#ctor(Domain.Core.Contracts.IUnitOfWork,UserManagement.Domain.Repositories.IUserRepository,User.API.Application.Contracts.ITokenAuthentication)">
             <summary>
             Contructor with the dependencies required
             </summary>
             <param name="unitOfWork"></param>
             <param name="userRepositoryGeneric"></param>
+            <param name="tokenAuthentication"></param>
         </member>
         <member name="T:User.API.Controllers.UserController">
             <summary>
@@ -71,6 +78,12 @@
             <param name="username">User id</param>
         </member>
         <member name="M:User.API.Controllers.UserController.GetUsers">
+            <summary>
+            Get list of user info. 
+            </summary>
+            <remarks>Endpoint to get all the users</remarks>
+        </member>
+        <member name="M:User.API.Controllers.UserController.Autenticate(User.API.Application.Model.Request.UserInfoRequest)">
             <summary>
             Get list of user info. 
             </summary>
