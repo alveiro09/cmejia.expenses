@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Domain.Core.Model;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Http;
 using User.API.Application.Contracts;
@@ -75,6 +77,18 @@ namespace User.API.Controllers
         public Task<IActionResult> Autenticate([Microsoft.AspNetCore.Mvc.FromBody]UserInfoRequest userInfoRequest)
         {
             return _userService.Authenticate(userInfoRequest);
+        }
+        /// <summary>
+        /// Update a user by user name. 
+        /// </summary>
+        /// <remarks>Endpoint to get an expenses</remarks>
+        /// <param name="userName">User id</param>
+        /// <param name="patchDtos">User info</param>
+        [Microsoft.AspNetCore.Mvc.HttpPatch("{userName}")]
+        [Produces("application/json")]
+        public async Task<IActionResult> UpdateExpense([Microsoft.AspNetCore.Mvc.FromRoute] string userName, [Microsoft.AspNetCore.Mvc.FromBody] List<PatchDto> patchDtos)
+        {
+            return await _userService.UpdateUser(userName, patchDtos);
         }
     }
 }

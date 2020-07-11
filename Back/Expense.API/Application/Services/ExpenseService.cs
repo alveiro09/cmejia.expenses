@@ -1,4 +1,5 @@
 ﻿using Domain.Core.Contracts;
+using Domain.Core.Model;
 using Expense.API.Application.Contracts;
 using Expense.API.Application.Model.Request;
 using Expense.API.Application.Model.Response;
@@ -135,6 +136,21 @@ namespace Expense.API.Application.Services
                     };
                     result.Add(expenseResponse);
                 }
+                return new OkObjectResult(result);
+            }
+            else return new NotFoundResult();
+        }
+
+        public async Task<IActionResult> UpdateExpense(Guid id, List<PatchDto> patchDtos)
+        {
+            UpdateExpenseResponse result = new UpdateExpenseResponse() { Message = "", Id = id, Updated = false };
+            var expenseToFind = (await _expenseRepository.GetAsync(Expense => Expense.Id.Equals(id))).FirstOrDefault();
+            if (expenseToFind != null)
+            {
+                var update = await _expenseRepository.ApplyPatchAsync(expenseToFind, patchDtos);
+                result.Updated = update.Equals(1);
+                result.Message = result.Updated ? "" : $"Error updating expense {id}";
+
                 return new OkObjectResult(result);
             }
             else return new NotFoundResult();

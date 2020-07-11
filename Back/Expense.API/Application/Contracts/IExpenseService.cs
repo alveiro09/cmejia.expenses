@@ -1,6 +1,8 @@
-﻿using Expense.API.Application.Model.Request;
+﻿using Domain.Core.Model;
+using Expense.API.Application.Model.Request;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Expense.API.Application.Contracts
@@ -34,5 +36,10 @@ namespace Expense.API.Application.Contracts
         /// <returns></returns>
         Task<IActionResult> GetExpenses(string userNameOwner);
 
+        /// <summary>
+        /// Update Expenses by id
+        /// </summary>
+        /// <returns></returns>
+        Task<IActionResult> UpdateExpense(Guid id, List<PatchDto> patchDtos);
     }
 }

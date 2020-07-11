@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Domain.Core.Model;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using User.API.Application.Model.Request;
 
@@ -32,5 +34,11 @@ namespace User.API.Application.Contracts
         /// </summary>
         /// <returns></returns>
         Task<IActionResult> Authenticate(UserInfoRequest userInforequest);
+
+        /// <summary>
+        /// Update user by user name
+        /// </summary>
+        /// <returns></returns>
+        Task<IActionResult> UpdateUser(string userName, List<PatchDto> patchDtos);
     }
 }

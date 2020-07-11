@@ -1,9 +1,11 @@
-﻿using Expense.API.Application.Contracts;
+﻿using Domain.Core.Model;
+using Expense.API.Application.Contracts;
 using Expense.API.Application.Model.Request;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Expense.API.Controllers
@@ -69,7 +71,7 @@ namespace Expense.API.Controllers
         }
 
         /// <summary>
-        /// Get a Expense info. 
+        /// Get a Expenses info. 
         /// </summary>
         /// <remarks>Endpoint to get an expenses</remarks>
         /// <param name="usernameOwner">Expense id</param>
@@ -78,6 +80,19 @@ namespace Expense.API.Controllers
         public Task<IActionResult> GetExpenses(string usernameOwner)
         {
             return _ExpenseService.GetExpenses(usernameOwner);
+        }
+
+        /// <summary>
+        /// Update a Expenses by Id. 
+        /// </summary>
+        /// <remarks>Endpoint to get an expenses</remarks>
+        /// <param name="id">Expense id</param>
+        /// <param name="patchDtos">Expense info</param>
+        [HttpPatch("{id}")]
+        [Produces("application/json")]
+        public async Task<IActionResult> UpdateExpense([FromRoute] Guid id, [FromBody] List<PatchDto> patchDtos)
+        {
+            return await _ExpenseService.UpdateExpense(id, patchDtos);
         }
     }
 }

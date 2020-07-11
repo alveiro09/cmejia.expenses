@@ -1,4 +1,5 @@
 ﻿using Domain.Core.Contracts;
+using Domain.Core.Model;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -75,6 +76,8 @@ namespace User.API.Application.Services
             if (userToFind != null)
             {
                 result.FirstName = userToFind.FirstName;
+                result.SecondName = userToFind.SecondName;
+                result.LastName = userToFind.LastName;
                 result.UserName = userToFind.UserName;
                 return new OkObjectResult(result);
             }
@@ -94,6 +97,8 @@ namespace User.API.Application.Services
                         result.Add(new UserResponse
                         {
                             FirstName = user.FirstName,
+                            SecondName = user.SecondName,
+                            LastName = user.LastName,
                             UserName = user.UserName
                         });
                     }
@@ -125,6 +130,22 @@ namespace User.API.Application.Services
             {
                 return new BadRequestResult();
             }
+        }
+
+        public async Task<IActionResult> UpdateUser(string userName, List<PatchDto> patchDtos)
+        {
+            UpdateUserResponse result = new UpdateUserResponse() { Message = "", UserName = userName, Updated = false };
+            var userToFind = (await _userRepository.GetAsync(user => user.UserName.Equals(userName))).FirstOrDefault();
+            if (userToFind != null)
+            {
+                var update = await _userRepository.ApplyPatchAsync(userToFind, patchDtos);
+                result.Updated = update.Equals(1);
+                result.Message = result.Updated ? "" : $"Error updating user {userName}";
+
+                return new OkObjectResult(result);
+            }
+            else return new NotFoundResult();
+
         }
     }
 }

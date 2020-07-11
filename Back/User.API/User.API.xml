@@ -33,6 +33,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:User.API.Application.Contracts.IUserService.UpdateUser(System.String,System.Collections.Generic.List{Domain.Core.Model.PatchDto})">
+            <summary>
+            Update user by user name
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:User.API.Application.Model.UserSettings">
             <summary>
             Settings for the seed of orders
@@ -88,6 +94,14 @@
             Get list of user info. 
             </summary>
             <remarks>Endpoint to get all the users</remarks>
+        </member>
+        <member name="M:User.API.Controllers.UserController.UpdateExpense(System.String,System.Collections.Generic.List{Domain.Core.Model.PatchDto})">
+            <summary>
+            Update a user by user name. 
+            </summary>
+            <remarks>Endpoint to get an expenses</remarks>
+            <param name="userName">User id</param>
+            <param name="patchDtos">User info</param>
         </member>
         <member name="T:User.API.Infraestructure.UserContextSeed">
             <summary>
