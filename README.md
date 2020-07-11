@@ -1,6 +1,6 @@
 # Expenses home
 
-Welcome to Expenses code repository !!
+..:: Expenses code repository ::..
 
 ## Expenses
 
@@ -8,12 +8,14 @@ Welcome to Expenses code repository !!
 >
 > 
 
-## Getting Started
+## Owner ##
+
+[Cristian Mejia](https://linktr.ee/cristianm009)
 
 
 ## References ##
 
-The following links can provide to you a more deeper knowledge around the technologies we will use during the project implementation:
+The following list are the technologies I will use during the project implementation:
 
 - [DotNet Core](https://docs.microsoft.com/en-us/dotnet/core/)
 - [ASP.NET Core](https://github.com/aspnet/Home)
@@ -23,3 +25,7 @@ The following links can provide to you a more deeper knowledge around the techno
 - [IdentityServer](https://identityserver4.readthedocs.io/en/release/)
 - [Docker](https://docs.docker.com/)
 - [Json Web Tokens](https://jwt.io/)
+- [Azure Functions](https://azure.microsoft.com/en-us/services/functions/)
+- [AWS Lambda](https://aws.amazon.com/lambda/)
+- [Angular](https://angular.io/)
+- [React](https://reactjs.org/)
