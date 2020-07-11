@@ -23,14 +23,28 @@ namespace ExpenseManagement.Domain.Infraestructure.EntityConfiguration
             builder.Property(item => item.PaidOut)
                  .HasColumnName("paidout");
 
+            builder.Property(item => item.DatePaidOut)
+                .HasColumnName("datepaidout");
+
             builder.Property(item => item.Value)
-                 .HasColumnName("value")
-                 .IsRequired();
+                     .HasColumnName("value")
+                     .IsRequired();
 
             builder.Property(item => item.Created)
             .HasColumnName("created")
             .IsRequired()
             .ValueGeneratedOnAdd();
+
+            builder.HasOne(item => item.ExpenseType)
+                  .WithMany(item => item.Expenses)
+                  .HasForeignKey(item => item.IdExpenseType);
+
+            builder.Property(item => item.UserNameOwner)
+                 .HasColumnName("usernameowner");
+
+            builder.Property(item => item.ExpirationDate)
+                     .HasColumnName("expirationdate")
+                     .IsRequired();
         }
     }
 }

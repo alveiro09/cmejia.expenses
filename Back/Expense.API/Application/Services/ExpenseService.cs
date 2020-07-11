@@ -41,7 +41,10 @@ namespace Expense.API.Application.Services
                 Id = Guid.NewGuid(),
                 Name = addExpenseRequest.Name,
                 Value = addExpenseRequest.Value,
-                Description = addExpenseRequest.Description
+                Description = addExpenseRequest.Description,
+                UserNameOwner = addExpenseRequest.UserNameOwner,
+                IdExpenseType = addExpenseRequest.IdExpenseType,
+                ExpirationDate=addExpenseRequest.ExpirationDate
             };
             try
             {
@@ -91,6 +94,7 @@ namespace Expense.API.Application.Services
                         Created = Expense.Created,
                         DatePaidOut = Expense.DatePaidOut,
                         Description = Expense.Description,
+                        
                     });
                 }
             }

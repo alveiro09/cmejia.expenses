@@ -9,6 +9,7 @@ namespace ExpenseManagement.Domain.Infraestructure
     {
         #region DB Sets
         public DbSet<Expense> Expenses { get; set; }
+        public DbSet<ExpenseType> ExpenseTypes { get; set; }
         #endregion
 
         #region Configuration
@@ -21,6 +22,7 @@ namespace ExpenseManagement.Domain.Infraestructure
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new ExpenseEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new ExpenseTypeEntityConfiguration());
         }
         #endregion
     }

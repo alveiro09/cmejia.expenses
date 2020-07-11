@@ -1,4 +1,5 @@
 ﻿using Expense.API.Application.Model;
+using Expense.API.Infraestructure.Seeds;
 using ExpenseManagement.Domain.Infraestructure;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -52,13 +53,13 @@ namespace Expense.API.Infraestructure
             {
                 var useSampleData = settings.Value.UseSampleData;
 
-                //if (!context.Categories.Any())
-                //{
-                //    context.Categories.AddRange(useSampleData ? CategorySeed.GetSampleCategories() :
-                //                                                CategorySeed.GetCategoriesFromFile(environment.ContentRootPath, logger));
-                //}
+                if (!context.ExpenseTypes.Any())
+                {
+                    context.ExpenseTypes.AddRange(useSampleData ? ExpenseTypeSeed.GetDefaultExpenses() :
+                                                                ExpenseTypeSeed.GetDefaultExpenses());
+                }
 
-                
+
                 context.SaveChangesAsync();
             });
         }

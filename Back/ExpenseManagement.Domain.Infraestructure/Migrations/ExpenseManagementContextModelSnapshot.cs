@@ -26,11 +26,17 @@ namespace ExpenseManagement.Domain.Infraestructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnName("created");
 
-                    b.Property<DateTime>("DatePaidOut");
+                    b.Property<DateTime>("DatePaidOut")
+                        .HasColumnName("datepaidout");
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnName("description");
+
+                    b.Property<DateTime>("ExpirationDate")
+                        .HasColumnName("expirationdate");
+
+                    b.Property<int>("IdExpenseType");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -39,12 +45,39 @@ namespace ExpenseManagement.Domain.Infraestructure.Migrations
                     b.Property<bool>("PaidOut")
                         .HasColumnName("paidout");
 
+                    b.Property<string>("UserNameOwner")
+                        .HasColumnName("usernameowner");
+
                     b.Property<double>("Value")
                         .HasColumnName("value");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("IdExpenseType");
+
                     b.ToTable("expenses");
+                });
+
+            modelBuilder.Entity("ExpenseManagement.Domain.Model.ExpenseType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnName("name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("expensesType");
+                });
+
+            modelBuilder.Entity("ExpenseManagement.Domain.Model.Expense", b =>
+                {
+                    b.HasOne("ExpenseManagement.Domain.Model.ExpenseType", "ExpenseType")
+                        .WithMany("Expenses")
+                        .HasForeignKey("IdExpenseType")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

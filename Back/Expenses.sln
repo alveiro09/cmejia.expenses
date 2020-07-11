@@ -27,9 +27,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserManagement.Domain", "Us
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserManagement.Domain.Infraestructure", "User.Domain.Infraestructure\UserManagement.Domain.Infraestructure.csproj", "{33986677-1DED-4074-AB31-0BF8A94FD2B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpenseManagement.Domain", "ExpenseManagement.Domain\ExpenseManagement.Domain.csproj", "{F8807DC2-D409-4079-B723-EC865633BAB1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpenseManagement.Domain", "ExpenseManagement.Domain\ExpenseManagement.Domain.csproj", "{F8807DC2-D409-4079-B723-EC865633BAB1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpenseManagement.Domain.Infraestructure", "ExpenseManagement.Domain.Infraestructure\ExpenseManagement.Domain.Infraestructure.csproj", "{08B7DDEF-C53F-4891-8982-F1F9FF1865D4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpenseManagement.Domain.Infraestructure", "ExpenseManagement.Domain.Infraestructure\ExpenseManagement.Domain.Infraestructure.csproj", "{08B7DDEF-C53F-4891-8982-F1F9FF1865D4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ExpenseManagement", "ExpenseManagement", "{19AED932-7821-4FC6-A920-E85B6A9CDEF4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,8 +83,9 @@ Global
 		{181CF489-6D84-4473-9296-40C5480A3E5F} = {3FE177BC-75F1-48B2-BE2F-3698675D8E84}
 		{739731EF-2940-4694-A28E-EE1A4CEE9D4E} = {181CF489-6D84-4473-9296-40C5480A3E5F}
 		{33986677-1DED-4074-AB31-0BF8A94FD2B0} = {D3F2C50B-810D-449F-A86E-D34AD5968239}
-		{F8807DC2-D409-4079-B723-EC865633BAB1} = {181CF489-6D84-4473-9296-40C5480A3E5F}
+		{F8807DC2-D409-4079-B723-EC865633BAB1} = {19AED932-7821-4FC6-A920-E85B6A9CDEF4}
 		{08B7DDEF-C53F-4891-8982-F1F9FF1865D4} = {D3F2C50B-810D-449F-A86E-D34AD5968239}
+		{19AED932-7821-4FC6-A920-E85B6A9CDEF4} = {3FE177BC-75F1-48B2-BE2F-3698675D8E84}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {859B3DBB-EF35-4EF0-8E0A-9AC7ADA9AB39}
