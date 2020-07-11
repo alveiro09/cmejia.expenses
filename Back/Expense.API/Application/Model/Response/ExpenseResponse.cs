@@ -14,5 +14,7 @@ namespace Expense.API.Application.Model.Response
         public int IdExpenseType { get; set; }
         public string UserNameOwner { get; set; }
         public DateTime ExpirationDate { get; set; }
+        public int IdExpenseStatus { get; set; }
+        public int IdExpenseRecurrenceType { get; set; }
     }
 }

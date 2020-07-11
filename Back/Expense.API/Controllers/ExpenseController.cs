@@ -37,8 +37,9 @@ namespace Expense.API.Controllers
         /// </summary>
         /// <remarks>Endpoint to create a new expense</remarks>
         /// <param name="addExpenseRequest">information about the Expense</param>
-        [HttpPost()]
+        [Microsoft.AspNetCore.Mvc.HttpPost()]
         [Consumes("application/json")]
+        [Produces("application/json")]
         public Task<IActionResult> AddExpense([FromBody]AddExpenseRequest addExpenseRequest)
         {
             return _ExpenseService.AddExpense(addExpenseRequest);
@@ -49,8 +50,8 @@ namespace Expense.API.Controllers
         /// </summary>
         /// <remarks>Endpoint to get an expenses</remarks>
         /// <param name="id">Expense id</param>
-        [HttpGet("id")]
-        [Consumes("application/json")]
+        [Microsoft.AspNetCore.Mvc.HttpGet("id")]
+        [Produces("application/json")]
         public Task<IActionResult> GetExpense(Guid id)
         {
             return _ExpenseService.GetExpense(id);
@@ -60,8 +61,8 @@ namespace Expense.API.Controllers
         /// Get list of Expense info. 
         /// </summary>
         /// <remarks>Endpoint to get all the expenses</remarks>
-        [HttpGet()]
-        [Consumes("application/json")]
+        [Microsoft.AspNetCore.Mvc.HttpGet()]
+        [Produces("application/json")]
         public Task<IActionResult> GetExpenses()
         {
             return _ExpenseService.GetExpenses();
@@ -72,8 +73,8 @@ namespace Expense.API.Controllers
         /// </summary>
         /// <remarks>Endpoint to get an expenses</remarks>
         /// <param name="usernameOwner">Expense id</param>
-        [HttpGet("usernameOwner")]
-        [Consumes("application/json")]
+        [Microsoft.AspNetCore.Mvc.HttpGet("usernameOwner")]
+        [Produces("application/json")]
         public Task<IActionResult> GetExpenses(string usernameOwner)
         {
             return _ExpenseService.GetExpenses(usernameOwner);

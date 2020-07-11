@@ -3,7 +3,6 @@ using Expense.API.Application.Contracts;
 using Expense.API.Application.Model.Request;
 using Expense.API.Application.Model.Response;
 using ExpenseManagement.Domain.Repositories;
-using ExpenseManagement.Domain.ValueObjects;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -45,7 +44,9 @@ namespace Expense.API.Application.Services
                 Description = addExpenseRequest.Description,
                 UserNameOwner = addExpenseRequest.UserNameOwner,
                 IdExpenseType = addExpenseRequest.IdExpenseType,
-                ExpirationDate = addExpenseRequest.ExpirationDate
+                ExpirationDate = addExpenseRequest.ExpirationDate,
+                IdExpenseStatus = addExpenseRequest.IdExpenseStatus,
+                IdExpenseRecurrenceType = addExpenseRequest.IdExpenseRecurrenceType
             };
             try
             {
@@ -76,6 +77,8 @@ namespace Expense.API.Application.Services
                 result.ExpirationDate = ExpenseToFind.ExpirationDate;
                 result.IdExpenseType = ExpenseToFind.IdExpenseType;
                 result.UserNameOwner = ExpenseToFind.UserNameOwner;
+                result.IdExpenseStatus = ExpenseToFind.IdExpenseStatus;
+                result.IdExpenseRecurrenceType = ExpenseToFind.IdExpenseRecurrenceType;
                 return new OkObjectResult(result);
             }
             else return new NotFoundResult();
@@ -100,7 +103,9 @@ namespace Expense.API.Application.Services
                         Description = Expense.Description,
                         ExpirationDate = Expense.ExpirationDate,
                         IdExpenseType = Expense.IdExpenseType,
-                        UserNameOwner = Expense.UserNameOwner
+                        UserNameOwner = Expense.UserNameOwner,
+                        IdExpenseStatus = Expense.IdExpenseStatus,
+                        IdExpenseRecurrenceType = Expense.IdExpenseRecurrenceType,
                     });
                 }
             }

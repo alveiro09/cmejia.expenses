@@ -45,6 +45,15 @@ namespace ExpenseManagement.Domain.Infraestructure.EntityConfiguration
             builder.Property(item => item.ExpirationDate)
                      .HasColumnName("expirationdate")
                      .IsRequired();
+
+
+            builder.Property(item => item.IdExpenseStatus)
+                  .HasColumnName("idexpensestatus")
+                  .IsRequired();
+
+            builder.Property(item => item.IdExpenseRecurrenceType)
+                  .HasColumnName("idexpenserecurrencetype")
+                  .IsRequired();
         }
     }
 }

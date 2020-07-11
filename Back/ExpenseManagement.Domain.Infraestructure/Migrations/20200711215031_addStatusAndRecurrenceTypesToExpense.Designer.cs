@@ -3,14 +3,16 @@ using System;
 using ExpenseManagement.Domain.Infraestructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ExpenseManagement.Domain.Infraestructure.Migrations
 {
     [DbContext(typeof(ExpenseManagementContext))]
-    partial class ExpenseManagementContextModelSnapshot : ModelSnapshot
+    [Migration("20200711215031_addStatusAndRecurrenceTypesToExpense")]
+    partial class addStatusAndRecurrenceTypesToExpense
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -15,6 +15,8 @@ namespace ExpenseManagement.Domain.Model
         public int IdExpenseType { get; set; }
         public string UserNameOwner { get; set; }
         public DateTime ExpirationDate { get; set; }
+        public int IdExpenseStatus { get; set; }
+        public int IdExpenseRecurrenceType { get; set; }
         #endregion
         public Expense()
         {

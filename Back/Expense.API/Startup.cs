@@ -158,6 +158,7 @@ namespace Expense.API
                 config.SwaggerEndpoint("./swagger/v1/swagger.json", "Expenses");
                 config.RoutePrefix = string.Empty;
             });
+            app.UseDeveloperExceptionPage();
         }
     }
 }
