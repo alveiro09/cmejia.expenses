@@ -12,7 +12,6 @@ namespace ExpenseManagement.Domain.Model
         public Boolean PaidOut { get; set; }
         public DateTime Created { get; set; }
         public DateTime DatePaidOut { get; set; }
-        public virtual ExpenseType ExpenseType { get; set; }
         public int IdExpenseType { get; set; }
         public string UserNameOwner { get; set; }
         public DateTime ExpirationDate { get; set; }

@@ -36,7 +36,8 @@ namespace ExpenseManagement.Domain.Infraestructure.Migrations
                     b.Property<DateTime>("ExpirationDate")
                         .HasColumnName("expirationdate");
 
-                    b.Property<int>("IdExpenseType");
+                    b.Property<int>("IdExpenseType")
+                        .HasColumnName("idexpensetype");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -53,9 +54,35 @@ namespace ExpenseManagement.Domain.Infraestructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdExpenseType");
-
                     b.ToTable("expenses");
+                });
+
+            modelBuilder.Entity("ExpenseManagement.Domain.Model.ExpenseRecurrenceType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnName("name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("expensesRecurrenceType");
+                });
+
+            modelBuilder.Entity("ExpenseManagement.Domain.Model.ExpenseStatus", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnName("name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("expensesStatus");
                 });
 
             modelBuilder.Entity("ExpenseManagement.Domain.Model.ExpenseType", b =>
@@ -70,14 +97,6 @@ namespace ExpenseManagement.Domain.Infraestructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("expensesType");
-                });
-
-            modelBuilder.Entity("ExpenseManagement.Domain.Model.Expense", b =>
-                {
-                    b.HasOne("ExpenseManagement.Domain.Model.ExpenseType", "ExpenseType")
-                        .WithMany("Expenses")
-                        .HasForeignKey("IdExpenseType")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

@@ -35,9 +35,9 @@ namespace ExpenseManagement.Domain.Infraestructure.EntityConfiguration
             .IsRequired()
             .ValueGeneratedOnAdd();
 
-            builder.HasOne(item => item.ExpenseType)
-                  .WithMany(item => item.Expenses)
-                  .HasForeignKey(item => item.IdExpenseType);
+            builder.Property(item => item.IdExpenseType)
+                   .HasColumnName("idexpensetype")
+                   .IsRequired();
 
             builder.Property(item => item.UserNameOwner)
                  .HasColumnName("usernameowner");

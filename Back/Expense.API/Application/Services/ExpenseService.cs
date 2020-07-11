@@ -3,6 +3,7 @@ using Expense.API.Application.Contracts;
 using Expense.API.Application.Model.Request;
 using Expense.API.Application.Model.Response;
 using ExpenseManagement.Domain.Repositories;
+using ExpenseManagement.Domain.ValueObjects;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -44,7 +45,7 @@ namespace Expense.API.Application.Services
                 Description = addExpenseRequest.Description,
                 UserNameOwner = addExpenseRequest.UserNameOwner,
                 IdExpenseType = addExpenseRequest.IdExpenseType,
-                ExpirationDate=addExpenseRequest.ExpirationDate
+                ExpirationDate = addExpenseRequest.ExpirationDate
             };
             try
             {
@@ -72,6 +73,9 @@ namespace Expense.API.Application.Services
                 result.Created = ExpenseToFind.Created;
                 result.DatePaidOut = ExpenseToFind.DatePaidOut;
                 result.Description = ExpenseToFind.Description;
+                result.ExpirationDate = ExpenseToFind.ExpirationDate;
+                result.IdExpenseType = ExpenseToFind.IdExpenseType;
+                result.UserNameOwner = ExpenseToFind.UserNameOwner;
                 return new OkObjectResult(result);
             }
             else return new NotFoundResult();
@@ -87,18 +91,48 @@ namespace Expense.API.Application.Services
                 {
                     result.Add(new ExpenseResponse
                     {
-                        Id=Expense.Id,
+                        Id = Expense.Id,
                         Name = Expense.Name,
                         Value = Expense.Value,
                         PaidOut = Expense.PaidOut,
                         Created = Expense.Created,
                         DatePaidOut = Expense.DatePaidOut,
                         Description = Expense.Description,
-                        
+                        ExpirationDate = Expense.ExpirationDate,
+                        IdExpenseType = Expense.IdExpenseType,
+                        UserNameOwner = Expense.UserNameOwner
                     });
                 }
             }
             return new OkObjectResult(result);
+        }
+
+        public async Task<IActionResult> GetExpenses(string userNameOwner)
+        {
+            List<ExpenseResponse> result = new List<ExpenseResponse>();
+            var ExpensesToFind = await _expenseRepository.GetAsync(Expense => Expense.UserNameOwner.ToLower().Equals(userNameOwner));
+            if (ExpensesToFind != null && ExpensesToFind.Any())
+            {
+                foreach (var ExpenseToFind in ExpensesToFind)
+                {
+                    var expenseResponse = new ExpenseResponse()
+                    {
+                        Id = ExpenseToFind.Id,
+                        Name = ExpenseToFind.Name,
+                        Value = ExpenseToFind.Value,
+                        PaidOut = ExpenseToFind.PaidOut,
+                        Created = ExpenseToFind.Created,
+                        DatePaidOut = ExpenseToFind.DatePaidOut,
+                        Description = ExpenseToFind.Description,
+                        ExpirationDate = ExpenseToFind.ExpirationDate,
+                        IdExpenseType = ExpenseToFind.IdExpenseType,
+                        UserNameOwner = ExpenseToFind.UserNameOwner
+                    };
+                    result.Add(expenseResponse);
+                }
+                return new OkObjectResult(result);
+            }
+            else return new NotFoundResult();
         }
     }
 }

@@ -38,6 +38,7 @@ namespace User.API.Application.Services
                 Added = false,
                 FirstName = addUserRequest.FirstName,
                 SecondName = addUserRequest.SecondName,
+                LastName = addUserRequest.LastName,
                 UserName = addUserRequest.UserName
             };
             var newUser = new UserManagement.Domain.Model.User()
@@ -51,7 +52,8 @@ namespace User.API.Application.Services
                 Password = addUserRequest.Password,
                 SecondEmail = addUserRequest.SecondEmail,
                 SecondName = addUserRequest.SecondName,
-                UserName = addUserRequest.UserName
+                UserName = addUserRequest.UserName,
+                LastName = addUserRequest.LastName
             };
             try
             {

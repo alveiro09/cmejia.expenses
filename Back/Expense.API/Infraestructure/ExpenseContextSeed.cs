@@ -59,6 +59,19 @@ namespace Expense.API.Infraestructure
                                                                 ExpenseTypeSeed.GetDefaultExpenses());
                 }
 
+                if (!context.ExpenseStatus.Any())
+                {
+                    context.ExpenseStatus.AddRange(useSampleData ? ExpenseStatusSeed.GetDefaultExpenseStatus() :
+                                                                ExpenseStatusSeed.GetDefaultExpenseStatus());
+                }
+
+
+                if (!context.ExpenseRecurrenceTypes.Any())
+                {
+                    context.ExpenseRecurrenceTypes.AddRange(useSampleData ? ExpenseRecurrenceTypeSeed.GetDefaultExpenseRecurrenceType() :
+                                                                ExpenseRecurrenceTypeSeed.GetDefaultExpenseRecurrenceType());
+                }
+
 
                 context.SaveChangesAsync();
             });

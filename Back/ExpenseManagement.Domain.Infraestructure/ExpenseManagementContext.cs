@@ -10,6 +10,8 @@ namespace ExpenseManagement.Domain.Infraestructure
         #region DB Sets
         public DbSet<Expense> Expenses { get; set; }
         public DbSet<ExpenseType> ExpenseTypes { get; set; }
+        public DbSet<ExpenseStatus> ExpenseStatus { get; set; }
+        public DbSet<ExpenseRecurrenceType> ExpenseRecurrenceTypes { get; set; }
         #endregion
 
         #region Configuration
@@ -23,6 +25,8 @@ namespace ExpenseManagement.Domain.Infraestructure
         {
             modelBuilder.ApplyConfiguration(new ExpenseEntityConfiguration());
             modelBuilder.ApplyConfiguration(new ExpenseTypeEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new ExpenseStatusEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new ExpenseRecurrenceTypeEntityConfiguration());
         }
         #endregion
     }

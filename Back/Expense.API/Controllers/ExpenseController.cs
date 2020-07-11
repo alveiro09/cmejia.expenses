@@ -66,5 +66,17 @@ namespace Expense.API.Controllers
         {
             return _ExpenseService.GetExpenses();
         }
+
+        /// <summary>
+        /// Get a Expense info. 
+        /// </summary>
+        /// <remarks>Endpoint to get an expenses</remarks>
+        /// <param name="usernameOwner">Expense id</param>
+        [HttpGet("usernameOwner")]
+        [Consumes("application/json")]
+        public Task<IActionResult> GetExpenses(string usernameOwner)
+        {
+            return _ExpenseService.GetExpenses(usernameOwner);
+        }
     }
 }

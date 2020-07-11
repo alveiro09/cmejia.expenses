@@ -28,5 +28,11 @@ namespace Expense.API.Application.Contracts
         /// <returns></returns>
         Task<IActionResult> GetExpenses();
 
+        /// <summary>
+        /// Get Expenses by user name owner
+        /// </summary>
+        /// <returns></returns>
+        Task<IActionResult> GetExpenses(string userNameOwner);
+
     }
 }

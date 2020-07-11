@@ -27,6 +27,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Expense.API.Application.Contracts.IExpenseService.GetExpenses(System.String)">
+            <summary>
+            Get Expenses by user name owner
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Expense.API.Application.Model.ExpenseSettings">
             <summary>
             Settings for the seed of orders
@@ -75,6 +81,13 @@
             Get list of Expense info. 
             </summary>
             <remarks>Endpoint to get all the expenses</remarks>
+        </member>
+        <member name="M:Expense.API.Controllers.ExpenseController.GetExpenses(System.String)">
+            <summary>
+            Get a Expense info. 
+            </summary>
+            <remarks>Endpoint to get an expenses</remarks>
+            <param name="usernameOwner">Expense id</param>
         </member>
         <member name="T:Expense.API.Infraestructure.ExpenseContextSeed">
             <summary>
