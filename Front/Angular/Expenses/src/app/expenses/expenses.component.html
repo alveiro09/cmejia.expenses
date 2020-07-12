@@ -1,0 +1,68 @@
+<div class="container">
+    <div class="form-container">
+        <form [formGroup]="addExpenseForm" (submit)="submit()">
+            <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Name
+                </mat-label>
+                <input matInput formControlName="name" required>
+                <mat-error *ngIf="addExpenseForm.controls.name.touched && addExpenseForm.controls.name.invalid">
+                    <span *ngIf="addExpenseForm.controls.name.errors.required">This field is mandatory.</span>
+                    <span *ngIf="addExpenseForm.controls.name.errors.pattern">This field is invalid.</span>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Description
+                </mat-label>
+                <input matInput formControlName="description">
+            </mat-form-field>
+            <mat-form-field class="form-field" appearance="outline">
+                <mat-label> Value
+                </mat-label>
+                <input matInput formControlName="value" type="number" required>
+                <mat-error *ngIf="addExpenseForm.controls.value.touched && addExpenseForm.controls.value.invalid">
+                    <span *ngIf="addExpenseForm.controls.value.errors.required">This field is mandatory.</span>
+                    <span *ngIf="addExpenseForm.controls.value.errors.pattern">This field is invalid.</span>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="form-field" appearance="outline">
+                <mat-label> Expense Type
+                </mat-label>
+                <input matInput formControlName="expenseType" type="number" required>
+                <mat-error
+                    *ngIf="addExpenseForm.controls.expenseType.touched && addExpenseForm.controls.expenseType.invalid">
+                    <span *ngIf="addExpenseForm.controls.expenseType.errors.required">This field is mandatory.</span>
+                    <span *ngIf="addExpenseForm.controls.expenseType.errors.pattern">This field is invalid.</span>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="form-field" appearance="outline">
+                <mat-label> User Name Owner
+                </mat-label>
+                <input matInput formControlName="userNameOwner" required>
+                <mat-error
+                    *ngIf="addExpenseForm.controls.userNameOwner.touched && addExpenseForm.controls.userNameOwner.invalid">
+                    <span *ngIf="addExpenseForm.controls.userNameOwner.errors.required">This field is mandatory.</span>
+                    <span *ngIf="addExpenseForm.controls.userNameOwner.errors.pattern">This field is invalid.</span>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="form-field" appearance="outline">
+                <mat-label> ExpirationDate
+                </mat-label>
+                <input matInput formControlName="expirationDate" type="datetime" required>
+                <mat-error *ngIf="addExpenseForm.controls.expirationDate.touched && addExpenseForm.controls.expirationDate.invalid">
+                    <span *ngIf="addExpenseForm.controls.expirationDate.errors.required">This field is mandatory.</span>
+                    <span *ngIf="addExpenseForm.controls.expirationDate.errors.pattern">This field is invalid.</span>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="form-field" appearance="outline">
+                <mat-label> Expense Recurrence Type
+                </mat-label>
+                <input matInput formControlName="expenseRecurrenceType" required>
+                <mat-error *ngIf="addExpenseForm.controls.expenseRecurrenceType.touched && addExpenseForm.controls.expenseRecurrenceType.invalid">
+                    <span *ngIf="addExpenseForm.controls.expenseRecurrenceType.errors.required">This field is mandatory.</span>
+                    <span *ngIf="addExpenseForm.controls.expenseRecurrenceType.errors.pattern">This field is invalid.</span>
+                </mat-error>
+            </mat-form-field>
+            <button mat-raised-button color="primary" type="submit">Submit</button>
+        </form>
+    </div>
+</div>
