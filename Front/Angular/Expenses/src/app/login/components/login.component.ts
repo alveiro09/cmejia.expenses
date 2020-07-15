@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
 import { FormGroup, FormControl } from '@angular/forms';
+
+
+import { Login } from '../../core/models/login.model';
+import { UsersService } from '../../core/services/users/users.service';
+import { LocalStorageService } from '../../core/services/localstorage/localstorage.service';
 
 @Component({
   selector: 'app-login',
@@ -8,7 +14,13 @@ import { FormGroup, FormControl } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  login: Login;
+
+  constructor(
+    private route: ActivatedRoute,
+    private usersService: UsersService,
+    private localStorageService: LocalStorageService
+  ) { }
 
   ngOnInit() {
   }
@@ -20,5 +32,15 @@ export class LoginComponent implements OnInit {
 
   submit() {
     console.log('login');
+    const login: Login = {
+      email: this.loginForm.get('email').value,
+      password: this.loginForm.get('password').value
+
+    };
+    this.usersService.authenticate(login)
+      .subscribe(product => {
+        console.log(login);
+        this.localStorageService.save('expenses_token', JSON.stringify(login));
+      });
   }
 }

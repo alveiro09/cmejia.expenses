@@ -4,6 +4,6 @@
 
 export const environment = {
   production: false,
-  urlUsers:"https://localhost:44364/",
-  urlExpenses:"https://localhost:44397/",
+  urlUsers:"https://localhost:44364",
+  urlExpenses:"https://localhost:44397",
 };
