@@ -6,6 +6,7 @@ import { CreateUser } from './../../models/createuser.model';
 import { PatchDto } from './../../models/patchdto.model';
 
 import { environment } from './../../../../environments/environment';
+import { User } from '../../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -22,20 +23,20 @@ export class UsersService {
 
   getUser(username: string) {
     console.log(username);
-    return this.http.get(`${environment.urlUsers}/User/username?username=${username}`);
+    return this.http.get<User>(`${environment.urlUsers}/User/username?username=${username}`);
   }
 
   getUsers() {
-    return this.http.get(`${environment.urlUsers}/User`);
+    return this.http.get<User[]>(`${environment.urlUsers}/User`);
   }
 
   createUser(createUser: CreateUser) {
     console.log(createUser);
-    return this.http.post(`${environment.urlUsers}/User`, createUser);
+    return this.http.post<User>(`${environment.urlUsers}/User`, createUser);
   }
 
   updateUser(username: string, patchDto: PatchDto[]) {
     console.log(username);
-    return this.http.patch(`${environment.urlUsers}/User${username}`, patchDto);
+    return this.http.patch<User>(`${environment.urlUsers}/User${username}`, patchDto);
   }
 }

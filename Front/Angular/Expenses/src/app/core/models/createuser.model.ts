@@ -3,7 +3,7 @@ export interface CreateUser {
     secondName: string;
     lastName: string;
     identityNumber: number;
-    identityDocument: number;
+    idIdentityDocument: number;
     email: string;
     secondEmail: string;
     userName: string;

@@ -1,5 +1,4 @@
 export interface CreateExpense {
-    firstName: string;
     name: string;
     description: string;
     value: number;
