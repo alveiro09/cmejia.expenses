@@ -33,14 +33,14 @@ export class LoginComponent implements OnInit {
   submit() {
     console.log('login');
     const login: Login = {
-      email: this.loginForm.get('email').value,
+      mail: this.loginForm.get('email').value,
       password: this.loginForm.get('password').value
 
     };
     this.usersService.authenticate(login)
-      .subscribe(product => {
+      .subscribe(token => {
         console.log(login);
-        this.localStorageService.save('expenses_token', JSON.stringify(login));
+        this.localStorageService.save('expenses_token', JSON.stringify(token));
       });
   }
 }

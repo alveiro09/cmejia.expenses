@@ -92,6 +92,13 @@ namespace Expense.API
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 content.IncludeXmlComments(xmlPath);
             });
+            //cors
+            services.AddCors(setup => setup.AddPolicy("expenses-cors-policy", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyHeader()
+                       .AllowAnyMethod();
+            }));
             //authentication
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(option =>
@@ -121,6 +128,8 @@ namespace Expense.API
             {
                 app.UseDeveloperExceptionPage();
             }
+            //cors
+            app.UseCors("expenses-cors-policy");
             // Supporting reverse proxy (nginx)
             app.UseForwardedHeaders(new ForwardedHeadersOptions
             {
