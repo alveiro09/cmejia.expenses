@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 
-import { ExpensesComponent } from './components/expenses.component';
+import { ExpensesComponent } from './components/expenses/expenses.component';
 
 const routes: Routes = [
     {
