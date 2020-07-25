@@ -25,7 +25,7 @@ namespace User.API.Application.Services
             var claims = new List<Claim>()
             {
                 new Claim("Mail", string.IsNullOrEmpty(tokenResponse.Mail)? "": tokenResponse.Mail),
-                new Claim("FirsName", string.IsNullOrEmpty(tokenResponse.FirsName)?  "": tokenResponse.FirsName),
+                new Claim("FirstName", string.IsNullOrEmpty(tokenResponse.FirstName)?  "": tokenResponse.FirstName),
                 new Claim("LastName", string.IsNullOrEmpty(tokenResponse.LastName)?  "": tokenResponse.LastName),
                 new Claim("UserName", string.IsNullOrEmpty(tokenResponse.UserName) ? "" : tokenResponse.UserName)
             };

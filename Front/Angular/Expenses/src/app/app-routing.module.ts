@@ -26,6 +26,10 @@ const routes: Routes = [{
       path: 'expenses',
       loadChildren: () => import('./expenses/expenses.module').then(m => m.ExpensesModule)
     },
+    {
+      path: 'expensesList',
+      loadChildren: () => import('./expenses-list/expenses-list.module').then(m => m.ExpensesListModule)
+    },
   ]
 },
 ];

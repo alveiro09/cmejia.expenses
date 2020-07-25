@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { CreateExpense } from './../../models/createexpense.model';
 import { PatchDto } from './../../models/patchdto.model';
@@ -19,14 +19,18 @@ export class ExpensesService {
     return this.http.get<Expense[]>(`${environment.urlExpenses}/Expense`);
   }
 
-  getExpenseById(ExpensesId: string) {
+  getExpensesById(ExpensesId: string) {
     console.log(ExpensesId);
-    return this.http.get<Expense>(`${environment.urlExpenses}/Expense/id?id=${ExpensesId}`);
+    return this.http.get<Expense[]>(`${environment.urlExpenses}/Expense/id?id=${ExpensesId}`);
   }
 
-  getExpenseByOwnerName(userNameOwner: string) {
+  getExpensesByOwnerName(userNameOwner: string, token: string) {
     console.log(userNameOwner);
-    return this.http.get<Expense>(`${environment.urlExpenses}/Expense/userNameOwner${userNameOwner}`);
+    console.log(token);
+    const headers = this.setHeaders(token);
+    console.log(headers);
+    return this.http.get<Expense[]>(`${environment.urlExpenses}/Expense/userNameOwner?userNameOwner=${userNameOwner}`,
+      { headers: headers });
   }
 
   createExpenses(createExpense: CreateExpense) {
@@ -37,5 +41,13 @@ export class ExpensesService {
   updateExpenses(ExpensesId: string, patchDto: PatchDto[]) {
     console.log(ExpensesId);
     return this.http.patch<Expense>(`${environment.urlExpenses}/Expense${ExpensesId}`, patchDto);
+  }
+
+  setHeaders(token: string) {
+    var headers = new HttpHeaders({ 
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + JSON.parse(token)
+   });
+    return headers;
   }
 }

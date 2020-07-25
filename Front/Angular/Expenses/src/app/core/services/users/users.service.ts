@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import * as jwt_decode from 'jwt-decode';
 
 import { Login } from './../../models/login.model';
 import { CreateUser } from './../../models/createuser.model';
 import { PatchDto } from './../../models/patchdto.model';
 
 import { environment } from './../../../../environments/environment';
+
 import { User } from '../../models/user.model';
+import { Token } from '../../models/token.model';
 
 @Injectable({
   providedIn: 'root'
@@ -38,5 +41,16 @@ export class UsersService {
   updateUser(username: string, patchDto: PatchDto[]) {
     console.log(username);
     return this.http.patch<User>(`${environment.urlUsers}/User${username}`, patchDto);
+  }
+
+  decodeToken(token): Token {
+    const decodedToken = jwt_decode(token);
+    const userData: Token = {
+      mail: decodedToken.Mail,
+      userName: decodedToken.UserName,
+      firstName: decodedToken.FirstName,
+      lastName: decodedToken.LastName
+    };
+    return userData;
   }
 }

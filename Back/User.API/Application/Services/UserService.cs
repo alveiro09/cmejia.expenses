@@ -120,7 +120,7 @@ namespace User.API.Application.Services
                 var userToFind = (await _userRepository.GetAsync(user => user.Email.ToLower().Equals(userInforequest.Mail.ToLower()))).FirstOrDefault();
                 if (userToFind != null)
                 {
-                    var tokenInfo = new TokenResponse() { FirsName = userToFind.FirstName, LastName = userToFind.LastName, Mail = userToFind.Email, UserName = userToFind.UserName };
+                    var tokenInfo = new TokenResponse() { FirstName = userToFind.FirstName, LastName = userToFind.LastName, Mail = userToFind.Email, UserName = userToFind.UserName };
                     var token = _tokenAuthentication.BuildToken(tokenInfo);
                     return new OkObjectResult(token);
                 }
