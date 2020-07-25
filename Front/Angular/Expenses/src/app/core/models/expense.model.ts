@@ -4,11 +4,11 @@ export interface Expense {
     description: string;
     value: number;
     paidOut: boolean;
-    created: Date;
-    datePaidOut: Date;
+    created: string;
+    datePaidOut: string;
     idExpenseType: number;
     userNameOwner: string;
-    expirationDate: Date;
+    expirationDate: string;
     idExpenseStatus: number;
     idExpenseRecurrenceType: number;
 }

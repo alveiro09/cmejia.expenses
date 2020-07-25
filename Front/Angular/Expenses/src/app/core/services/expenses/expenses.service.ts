@@ -25,17 +25,16 @@ export class ExpensesService {
   }
 
   getExpensesByOwnerName(userNameOwner: string, token: string) {
-    console.log(userNameOwner);
-    console.log(token);
     const headers = this.setHeaders(token);
-    console.log(headers);
     return this.http.get<Expense[]>(`${environment.urlExpenses}/Expense/userNameOwner?userNameOwner=${userNameOwner}`,
       { headers: headers });
   }
 
-  createExpenses(createExpense: CreateExpense) {
+  createExpenses(createExpense: CreateExpense, token: string) {
+    const headers = this.setHeaders(token);
     console.log(createExpense);
-    return this.http.post<Expense>(`${environment.urlExpenses}/Expense`, createExpense);
+    return this.http.post<Expense>(`${environment.urlExpenses}/Expense`, createExpense,
+      { headers: headers });
   }
 
   updateExpenses(ExpensesId: string, patchDto: PatchDto[]) {
@@ -44,10 +43,10 @@ export class ExpensesService {
   }
 
   setHeaders(token: string) {
-    var headers = new HttpHeaders({ 
+    var headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + JSON.parse(token)
-   });
+    });
     return headers;
   }
 }

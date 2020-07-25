@@ -46,7 +46,7 @@ namespace Expense.API.Application.Services
                 UserNameOwner = addExpenseRequest.UserNameOwner,
                 IdExpenseType = addExpenseRequest.IdExpenseType,
                 ExpirationDate = addExpenseRequest.ExpirationDate,
-                IdExpenseStatus = addExpenseRequest.IdExpenseStatus,
+                IdExpenseStatus = 1,
                 IdExpenseRecurrenceType = addExpenseRequest.IdExpenseRecurrenceType
             };
             try
@@ -72,10 +72,10 @@ namespace Expense.API.Application.Services
                 result.Name = ExpenseToFind.Name;
                 result.Value = ExpenseToFind.Value;
                 result.PaidOut = ExpenseToFind.PaidOut;
-                result.Created = ExpenseToFind.Created;
-                result.DatePaidOut = ExpenseToFind.DatePaidOut;
+                result.Created = ExpenseToFind.Created.ToString("dddd, dd MMMM yyyy");
+                result.DatePaidOut = ExpenseToFind.DatePaidOut.ToString("dddd, dd MMMM yyyy");
                 result.Description = ExpenseToFind.Description;
-                result.ExpirationDate = ExpenseToFind.ExpirationDate;
+                result.ExpirationDate = ExpenseToFind.ExpirationDate.ToString("dddd, dd MMMM yyyy");
                 result.IdExpenseType = ExpenseToFind.IdExpenseType;
                 result.UserNameOwner = ExpenseToFind.UserNameOwner;
                 result.IdExpenseStatus = ExpenseToFind.IdExpenseStatus;
@@ -99,10 +99,10 @@ namespace Expense.API.Application.Services
                         Name = Expense.Name,
                         Value = Expense.Value,
                         PaidOut = Expense.PaidOut,
-                        Created = Expense.Created,
-                        DatePaidOut = Expense.DatePaidOut,
+                        Created = Expense.Created.ToString("dddd, dd MMMM yyyy"),
+                        DatePaidOut = Expense.DatePaidOut.ToString("dddd, dd MMMM yyyy"),
                         Description = Expense.Description,
-                        ExpirationDate = Expense.ExpirationDate,
+                        ExpirationDate = Expense.ExpirationDate.ToString("dddd, dd MMMM yyyy"),
                         IdExpenseType = Expense.IdExpenseType,
                         UserNameOwner = Expense.UserNameOwner,
                         IdExpenseStatus = Expense.IdExpenseStatus,
@@ -127,10 +127,10 @@ namespace Expense.API.Application.Services
                         Name = ExpenseToFind.Name,
                         Value = ExpenseToFind.Value,
                         PaidOut = ExpenseToFind.PaidOut,
-                        Created = ExpenseToFind.Created,
-                        DatePaidOut = ExpenseToFind.DatePaidOut,
+                        Created = ExpenseToFind.Created.ToString("dddd, dd MMMM yyyy"),
+                        DatePaidOut = ExpenseToFind.DatePaidOut.ToString("dddd, dd MMMM yyyy"),
                         Description = ExpenseToFind.Description,
-                        ExpirationDate = ExpenseToFind.ExpirationDate,
+                        ExpirationDate = ExpenseToFind.ExpirationDate.ToString("dddd, dd MMMM yyyy"),
                         IdExpenseType = ExpenseToFind.IdExpenseType,
                         UserNameOwner = ExpenseToFind.UserNameOwner
                     };
