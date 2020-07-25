@@ -1,10 +1,16 @@
 <mat-card>
     <mat-card-header>
         <mat-card-title>{{expense.name}} </mat-card-title>
-        <mat-card-subtitle>{{expense.value}}</mat-card-subtitle>
+        <mat-card-subtitle>{{expense.value | currency}}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-        <p>{{ expense.description}} </p>
+        <p>Description: {{ expense.description}} </p>
+        <p>Creation Date{{ expense.created}} </p>        
+        <div *ngIf="expense.paidOut"><p>Paidout date {{ expense.datePaidOut}} </p></div>
+        <p>Expense type: {{ expense.idExpenseType}} </p>
+        <p>Expiration date: {{ expense.expirationDate}} </p>
+        <p>Status: {{ expense.idExpenseStatus}} </p>
+        <p>Expense type:{{ expense.idExpenseType}} </p>
     </mat-card-content>
     <!--
         <mat-card-actions>

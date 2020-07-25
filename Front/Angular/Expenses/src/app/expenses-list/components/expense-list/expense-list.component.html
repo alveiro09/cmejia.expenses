@@ -1,4 +1,4 @@
-<div class="expense-list">
+<div class="expense-grid">
     <app-expense 
         *ngFor="let expense of expensesList" 
         (expenseClicked)="clickExpense($event)" [expense]="expense">

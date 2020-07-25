@@ -21,9 +21,9 @@ export class ExpenseListComponent implements OnInit {
     private expensesService: ExpensesService,
     private usersService: UsersService) { }
 
-  ngOnInit() {
+  ngOnInit() {    
+    this.token =this.getToken();
     this.userName = this.getUser().userName;
-    this.getToken();
     this.getExpenses();
   }
 
@@ -40,7 +40,6 @@ export class ExpenseListComponent implements OnInit {
   }
 
   getUser() {
-    this.token = this.getToken();
     return this.usersService.decodeToken(this.token);
   }
 
