@@ -2,12 +2,15 @@
 <mat-toolbar color="primary">
     <mat-toolbar-row>
         <div class="row between-xs middle-xs header-row">
-        <nav>
-            <a mat-button routerLink="/login" routerLinkActive="active">Login</a>
-            <a mat-button routerLink="/users" routerLinkActive="active">Create User</a>
-            <a mat-button routerLink="/expenses" routerLinkActive="active">Create Expense</a>
-            <a mat-button routerLink="/expensesList" routerLinkActive="active">Expenses List</a>
-        </nav>
-    </div>
+            <nav>
+                <a mat-button routerLink="/login" routerLinkActive="active">Login</a>
+                <a mat-button routerLink="/users" routerLinkActive="active">Create User</a>
+                <a mat-button routerLink="/expensesList" routerLinkActive="active">Expenses List</a>
+                <a mat-button routerLink="/expenses" routerLinkActive="active">Create Expense</a>
+                <a mat-button (click)="logout()" class="d-block mr-0 ml-auto"> 
+                    <mat-icon>exit_to_app</mat-icon>
+                </a>
+            </nav>
+        </div>
     </mat-toolbar-row>
 </mat-toolbar>

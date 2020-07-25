@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { FormGroup, FormControl } from '@angular/forms';
-
+import { Router } from '@angular/router';
 
 import { Login } from '../../core/models/login.model';
 import { UsersService } from '../../core/services/users/users.service';
@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
   login: Login;
 
   constructor(
+    private router: Router,
     private route: ActivatedRoute,
     private usersService: UsersService,
     private localStorageService: LocalStorageService
@@ -41,6 +42,15 @@ export class LoginComponent implements OnInit {
       .subscribe(token => {
         console.log(login);
         this.localStorageService.save('expenses_token', JSON.stringify(token));
-      });
+        this.router.navigate(['/expensesList']);
+      },
+        (error) => {
+          console.log(`error: ${error.message}`);
+        }
+      );
+  }
+
+  createUser() {
+    this.router.navigate(['/users']);
   }
 }

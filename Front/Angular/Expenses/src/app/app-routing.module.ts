@@ -24,10 +24,12 @@ const routes: Routes = [{
     },
     {
       path: 'expenses',
+      canActivate: [AdminGuard],
       loadChildren: () => import('./expenses/expenses.module').then(m => m.ExpensesModule)
     },
     {
       path: 'expensesList',
+      canActivate: [AdminGuard],
       loadChildren: () => import('./expenses-list/expenses-list.module').then(m => m.ExpensesListModule)
     },
   ]
